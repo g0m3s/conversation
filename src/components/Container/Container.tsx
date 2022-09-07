@@ -1,5 +1,5 @@
-import { Stack, Typography } from '@mui/material'
 import { useMemo } from 'react'
+import { Stack, Typography } from '@mui/material'
 import { conversations } from '../../utils/talks'
 
 interface ContainerProps {
@@ -32,8 +32,7 @@ export const Container: React.FC<ContainerProps> = (props) => {
 
   return (
     <Stack mt={5} width='90%'>
-
-      {currentConversationId && conversations[0] && (
+      {currentConversationId !== 0 ? conversations[currentConversationId] && (
         <Stack gap={2} width='100%'>
           <Stack
             sx={{
@@ -43,7 +42,7 @@ export const Container: React.FC<ContainerProps> = (props) => {
               border: `2px solid #dedede`
             }}
           >
-            <Typography>{currentConversationId && conversations[0][currentConversationPosition].local}</Typography>
+            <Typography>{currentConversationId && conversations[currentConversationId][currentConversationPosition].local}</Typography>
           </Stack>
           <Stack
             sx={{
@@ -56,13 +55,12 @@ export const Container: React.FC<ContainerProps> = (props) => {
               borderWidth: '3px',
               borderStyle: 'solid',
               color: 'primary.main',
-              // boxShadow: `0px 0px 10px ${borderColor}`
             }}
           >
-            <Typography>{currentConversationId && conversations[0][currentConversationPosition].user}</Typography>
+            <Typography>{currentConversationId && conversations[currentConversationId][currentConversationPosition].user}</Typography>
           </Stack>
         </Stack>
-      )}
+      ) : undefined}
       <Stack>
         <Typography
           mt={2}

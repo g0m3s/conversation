@@ -4,6 +4,7 @@ export interface ConversationsProps {
 }
 
 export const conversations: Array<ConversationsProps[]> = [
+  [{ local: "", user: "" }],
   [
     {
       local: "Hi, how are you?",
@@ -19,7 +20,7 @@ export const conversations: Array<ConversationsProps[]> = [
     },
     {
       local: "Nice to meet you, my name is Ana",
-      user: "Nice to meet you, Anna. my name is Gustavo"
+      user: "Nice to meet you, Anna. My name is Gustavo"
     },
     {
       local: "What do you think about going out for coffee, Gustavo?",
@@ -36,12 +37,24 @@ export const conversations: Array<ConversationsProps[]> = [
   ],
   [
     {
-      local: "2 Hi, how are you?",
-      user: "I'm fine and you?"
+      local: "Hi! How can I help you?",
+      user: "Hi! i would like to buy a new phone"
     },
     {
-      local: "2 me too. today is a beautiful day, don't you think?",
-      user: "yes"
+      local: "Great! look at the showcase to see our options",
+      user: "Hmm... I liked that purple one. How much is it?"
+    },
+    {
+      local: "This one costs 1000 dollars",
+      user: "Wow! is expensive. And this white?"
+    },
+    {
+      local: "This one costs 800. It's last year's model.",
+      user: "Do you think it's worth paying more for the newer model?"
+    },
+    {
+      local: "Honestly, I don't think so. Last year's model meets all needs very well.",
+      user: "You're right. I want last year's model"
     },
   ]
 ]

@@ -1,9 +1,10 @@
+import { Button } from '../'
 import Lottie from 'react-lottie'
-import { Button } from '../Button'
 import { Stack } from '@mui/material'
 import recordingAnimation from '../../assets/recording.json'
 
 interface SpeechButtonProps {
+  isLoading: boolean
   listening: boolean
   statRecorder: () => void
   stopRecorder: () => void
@@ -12,6 +13,7 @@ interface SpeechButtonProps {
 export const SpeechButton: React.FC<SpeechButtonProps> = (props) => {
   const {
     listening,
+    isLoading,
     statRecorder,
     stopRecorder,
   } = props
@@ -19,6 +21,9 @@ export const SpeechButton: React.FC<SpeechButtonProps> = (props) => {
   return (
     <Stack width='90%' mb={12}>
       <Button
+        variant='secondary'
+        loading={isLoading}
+        onClick={listening ? stopRecorder : statRecorder}
         startIcon={
           listening ? (
             <Lottie
@@ -34,14 +39,8 @@ export const SpeechButton: React.FC<SpeechButtonProps> = (props) => {
               }}
             />
           ) : undefined}
-        onClick={listening ? stopRecorder : statRecorder}
-        sx={{
-          borderRadius: 2,
-          bgcolor: '#dedede',
-          color: 'primary.main',
-        }}
       >
-        {listening ? 'Encerrar' : 'Falar'}
+        {isLoading ? 'Conferindo' : listening ? 'Encerrar' : 'Falar'}
       </Button>
     </Stack>
   )

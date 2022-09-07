@@ -1,8 +1,8 @@
-import { Stack, Typography } from '@mui/material'
 import { conversations } from './utils/talks'
+import { Stack, Typography } from '@mui/material'
 import { useEffect, useMemo, useState } from 'react'
 import { stringCompare } from './utils/stringCompare'
-import { Container, SpeechButton } from './components'
+import { Container, SpeechButton, WelcomeModal } from './components'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
 export const App = () => {
@@ -13,34 +13,70 @@ export const App = () => {
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition()
 
-  const [currentConversationId, setCurrentConversationId] = useState<number>(1)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [showWelcomeModal, setShowWelcomeModal] = useState<boolean>(true)
+  const [currentConversationId, setCurrentConversationId] = useState<number>(0)
   const [currentConversationPosition, setCurrentConversationPosition] = useState<number>(0)
 
-  function getRandomInt(min: number, max: number) {
+  function getRandomInt(min: number, max: number): number {
     min = Math.ceil(min)
     max = Math.floor(max)
-    return Math.floor(Math.random() * (max - min) + min)
+    const result = Math.floor(Math.random() * (max - min) + min)
+
+    if (result !== currentConversationId){
+      return result
+    }
+    return getRandomInt(min, max)
   }
 
-  const statRecorder = () => {
+  const matchPercentage = useMemo(() => {
+    return stringCompare(conversations[currentConversationId][currentConversationPosition].user, transcript)
+  }, [currentConversationId, currentConversationPosition, transcript])
+
+  const startRecorder = () => {
+    resetTranscript()
     SpeechRecognition.startListening({ continuous: true, language: 'en-US' })
   }
 
   const stopRecorder = () => {
-    SpeechRecognition.stopListening()
-    if (matchPercentage >= 60) {
-      setCurrentConversationPosition(prev => prev += 1)
-    }
-    resetTranscript()
+    setIsLoading(true)
+    setTimeout(() => {
+      SpeechRecognition.stopListening()
+      if (matchPercentage >= 60) {
+        if (currentConversationPosition === (conversations[currentConversationId].length - 1)) {
+          setIsLoading(false)
+          alert('opa')
+          return
+        }
+        setCurrentConversationPosition(prev => prev += 1)
+        resetTranscript()
+        setIsLoading(false)
+      }
+      setIsLoading(false)
+      resetTranscript()
+    }, 1500)
   }
 
-  // useEffect(() => {
-  //   setCurrentConversationId(getRandomInt(0, 2))
-  // }, [])
+  useEffect(() => {
+    if (currentConversationId !== 0) {
+      if (matchPercentage > 80) {
+        if (currentConversationPosition === (conversations[currentConversationId].length - 1)) {
+          alert('acabou')
+          return
+        }
+        setCurrentConversationPosition(prev => prev += 1)
+        resetTranscript()
+        return
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [matchPercentage])
 
-  const matchPercentage = useMemo(() => {
-    return stringCompare(conversations[0][currentConversationPosition].user, transcript)
-  }, [currentConversationPosition, transcript])
+  useEffect(() => {
+    const randomId = getRandomInt(1, 3)
+    setCurrentConversationId(randomId)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>
@@ -57,7 +93,7 @@ export const App = () => {
       }}
     >
       <Stack mt={3} textAlign='center'>
-        <Typography variant='h2'>História n° 1</Typography>
+        <Typography variant='h2'>História n° {currentConversationId}</Typography>
       </Stack>
       <Stack
         width='100%'
@@ -72,12 +108,18 @@ export const App = () => {
         />
 
         <SpeechButton
+          isLoading={isLoading}
           listening={listening}
-          statRecorder={statRecorder}
+          statRecorder={startRecorder}
           stopRecorder={stopRecorder}
         />
       </Stack>
-    </Stack >
+
+      <WelcomeModal
+        isOpen={showWelcomeModal}
+        onClose={() => setShowWelcomeModal(false)}
+      />
+    </Stack>
   )
 }
 

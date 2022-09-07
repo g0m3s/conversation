@@ -1,91 +1,22 @@
-import React, { useState } from 'react'
-import clsx from 'clsx'
-import Stack from '@mui/material/Stack'
+import React from 'react'
 import { ButtonContent } from './components'
-import { makeStyles } from '../../utils/makeStyles'
 import { alpha, darken } from '@mui/material/styles'
 import CircularProgress from '@mui/material/CircularProgress'
 import ButtonBase, { ButtonBaseProps } from '@mui/material/ButtonBase'
-import { LinkBaseProps } from '@mui/material/Link'
 
 export interface ButtonProps extends ButtonBaseProps {
-  href?: string,
+  variant?: 'primary' | 'secondary' | 'tertiary'
+  size?: 'small' | 'large'
   loading?: boolean
-  icon?: JSX.Element
-  fullWidth?: boolean
-  onClick?: () => void
   endIcon?: JSX.Element
   startIcon?: JSX.Element
-  size?: 'small' | 'large'
-  variant?: 'primary' | 'secondary'
-  linkAttributes?: LinkBaseProps
+  fullWidth?: boolean
+  icon?: JSX.Element,
+  href?: string,
 }
-const useStyles = makeStyles((theme) => ({
-  baseStyle: {
-    ...theme.typography.button,
-    borderRadius: theme.shape.borderRadius,
-    paddingLeft: theme.spacing(3),
-    paddingRight: theme.spacing(3),
-    width: (props: ButtonProps) => props.fullWidth ? '100%' : undefined,
-    boxShadow: theme.shadows[2],
-    transition: theme.transitions.create([
-      'background-color',
-      'box-shadow'
-    ])
-  },
-  primaryStyle: {
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.common.white,
-    '&:focus': {
-      boxShadow: `${alpha(theme.palette.secondary.main, 0.15)} 0 0 0 0.2rem`
-    },
-    '&:active': {
-      backgroundColor: darken(theme.palette.secondary.main, 0.20)
-    }
-  },
-  secondaryStyle: {
-    backgroundColor: theme.palette.common.white,
-    color: theme.palette.secondary.main,
-    border: '1px solid #0BB849',
-    '&:focus': {
-      boxShadow: `${alpha(theme.palette.grey[700], 0.10)} 0 0 0 0.2rem`
-    },
-    '&:active': {
-      boxShadow: theme.shadows[1]
-    }
-  },
-  disableStyle: {
-    pointerEvents: 'none',
-    backgroundColor: (props: ButtonProps) => props.variant === 'primary' ? theme.palette.grey[200] : theme.palette.common.white,
-    color: (props: ButtonProps) => props.variant === 'primary' ? alpha(theme.palette.common.white, 0.8) : theme.palette.grey[200]
-  },
-  smallStyle: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1)
-  },
-  largeStyle: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2)
-  },
-  textContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: (props: ButtonProps) => props.startIcon ? theme.spacing(2) : undefined,
-    marginRight: (props: ButtonProps) => props.endIcon ? theme.spacing(2) : undefined
-  },
-  primarySpinner: {
-    color: theme.palette.common.white
-  },
-  secondarySpinner: {
-    color: theme.palette.secondary.main
-  },
-  iconButtonStyle: {
-  }
-}))
 
 /**
- * @param {IconName} icon - Transforms the button into a square Icon Button. It disables
+ * @param {icon} icon - An icon component. It disables
  * the following props:
  *  @param {'small' | 'large'} size
  *  @param {JSX.Element} endIcon
@@ -104,65 +35,96 @@ export const Button: React.FC<ButtonProps> = (props) => {
     fullWidth,
     loading,
     icon,
-    onClick,
+    sx,
     ...rest
   } = props
-  const [canFunctionRun, setCanFunctionRun] = useState<boolean>(true)
-  const classes = useStyles(props)
 
   const spinner = (
     <CircularProgress
       size={22}
-      className={clsx({
-        [classes.primarySpinner]: variant === 'primary',
-        [classes.secondarySpinner]: variant === 'secondary',
-      })}
+      sx={[
+        variant === 'primary' && {
+          color: 'common.white'
+        },
+        variant === 'secondary' && {
+          color: 'secondary.main'
+        },
+      ]}
     />
   )
 
-  const runFunction = () => {
-    onClick && onClick()
-    setCanFunctionRun(false)
-    setTimeout(() => {
-      if (!(props.disabled || props.loading)) {
-        setCanFunctionRun(true)
-      }
-    }, 1500)
-  }
-
-  const verifyFunction = () => {
-    onClick && canFunctionRun && runFunction()
-  }
-
   return (
     <ButtonBase
+      sx={[
+        (theme) => ({
+          paddingLeft: 3,
+          borderRadius: 2,
+          paddingRight: 3,
+          typography: 'button',
+          width: props.fullWidth ? '100%' : undefined,
+          transition: theme.transitions.create([
+            'background-color',
+            'box-shadow'
+          ]),
+          alignItems: 'center',
+        }),
+        (theme) => variant === 'primary' && ({
+          backgroundColor: 'secondary.main',
+          color: 'common.white',
+          '&:focus': {
+            boxShadow: `${alpha(theme.palette.secondary.main, 0.15)} 0 0 0 0.2rem`
+          },
+          '&:hover': {
+            boxShadow: `${alpha(theme.palette.secondary.main, 0.15)} 0 0 0 0.2rem`,
+          },
+          '&:active': {
+            backgroundColor: darken(theme.palette.secondary.main, 0.20)
+          }
+        }),
+        (theme) => variant === 'secondary' && ({
+          backgroundColor: 'common.white',
+          color: 'secondary.main',
+          '&:focus': {
+            boxShadow: `${alpha(theme.palette.grey[700], 0.10)} 0 0 0 0.2rem`
+          },
+          '&:disabled': {
+            border: `1px solid ${theme.palette.grey[200]}`,
+          }
+        }),
+        (theme) => variant === 'tertiary' && ({
+          backgroundColor: 'primary.light',
+          color: 'primary.main',
+          '&:focus': {
+            boxShadow: `${alpha(theme.palette.grey[700], 0.10)} 0 0 0 0.2rem`
+          }
+        }),
+        (theme) => (props.disabled || props.loading) && ({
+          pointerEvents: 'none',
+          backgroundColor: props.variant === 'primary' ? 'grey.200' : 'common.white',
+          color: props.variant === 'primary' ? alpha(theme.palette.common.white, 0.8) : 'grey.200'
+        }),
+        icon && {
+          padding: 1
+        },
+        size === 'small' && !icon && {
+          paddingTop: 1.5,
+          paddingBottom: 1
+        },
+        size === 'large' && !icon && {
+          paddingTop: 2.5,
+          paddingBottom: 2
+        },
+        ...Array.isArray(sx) ? sx : [sx]
+      ]}
       {...rest}
-      onClick={verifyFunction}
-      className={clsx({
-        [classes.iconButtonStyle]: Boolean(icon)
-      }, classes.baseStyle, props.className, {
-        [classes.primaryStyle]: variant === 'primary',
-        [classes.secondaryStyle]: variant === 'secondary',
-        [classes.disableStyle]: !canFunctionRun || props.disabled || props.loading
-      })}
     >
-      <Stack
-        direction='row'
-        alignItems='center'
-        sx={{ height: { xs: '40px', lg: 'auto' } }}
-        className={clsx({
-          [classes.smallStyle]: size === 'small' && !icon,
-          [classes.largeStyle]: size === 'large' && !icon
-        })}
+      <ButtonContent
+        endIcon={loading ? undefined : endIcon}
+        startIcon={loading ? spinner : startIcon}
+        icon={icon}
       >
-        <ButtonContent
-          endIcon={loading ? undefined : endIcon}
-          startIcon={loading ? spinner : startIcon}
-          icon={icon}
-        >
-          {children}
-        </ButtonContent>
-      </Stack>
+        {children}
+      </ButtonContent>
     </ButtonBase>
   )
 }
