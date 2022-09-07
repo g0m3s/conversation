@@ -2,7 +2,7 @@ import { conversations } from './utils/talks'
 import { Stack, Typography } from '@mui/material'
 import { useEffect, useMemo, useState } from 'react'
 import { stringCompare } from './utils/stringCompare'
-import { Container, SpeechButton, WelcomeModal } from './components'
+import { Container, EndHistoryModal, SpeechButton, WelcomeModal } from './components'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
 export const App = () => {
@@ -14,7 +14,9 @@ export const App = () => {
   } = useSpeechRecognition()
 
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [averageMatch, setAverageMatch] = useState<number[]>([0])
   const [showWelcomeModal, setShowWelcomeModal] = useState<boolean>(true)
+  const [showEndHistoryModal, setShowEndHistoryModal] = useState<boolean>(false)
   const [currentConversationId, setCurrentConversationId] = useState<number>(0)
   const [currentConversationPosition, setCurrentConversationPosition] = useState<number>(0)
 
@@ -23,7 +25,7 @@ export const App = () => {
     max = Math.floor(max)
     const result = Math.floor(Math.random() * (max - min) + min)
 
-    if (result !== currentConversationId){
+    if (result !== currentConversationId) {
       return result
     }
     return getRandomInt(min, max)
@@ -45,10 +47,11 @@ export const App = () => {
       if (matchPercentage >= 60) {
         if (currentConversationPosition === (conversations[currentConversationId].length - 1)) {
           setIsLoading(false)
-          alert('opa')
+          setShowEndHistoryModal(true)
           return
         }
         setCurrentConversationPosition(prev => prev += 1)
+        setAverageMatch(prev => [...prev, matchPercentage])
         resetTranscript()
         setIsLoading(false)
       }
@@ -57,15 +60,23 @@ export const App = () => {
     }, 1500)
   }
 
+  const generateAverageMatch = () => {
+    const averageMatchLength = averageMatch.length
+    const matchSum = averageMatch.reduce((prev, current) => prev += current)
+    return (matchSum / averageMatchLength).toFixed(2)
+  }
+
   useEffect(() => {
     if (currentConversationId !== 0) {
       if (matchPercentage > 80) {
+        setAverageMatch(prev => [...prev, matchPercentage])
+        resetTranscript()
         if (currentConversationPosition === (conversations[currentConversationId].length - 1)) {
-          alert('acabou')
+          SpeechRecognition.stopListening()
+          setShowEndHistoryModal(true)
           return
         }
         setCurrentConversationPosition(prev => prev += 1)
-        resetTranscript()
         return
       }
     }
@@ -75,7 +86,7 @@ export const App = () => {
   useEffect(() => {
     const randomId = getRandomInt(1, 3)
     setCurrentConversationId(randomId)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (!browserSupportsSpeechRecognition) {
@@ -118,6 +129,13 @@ export const App = () => {
       <WelcomeModal
         isOpen={showWelcomeModal}
         onClose={() => setShowWelcomeModal(false)}
+      />
+
+      <EndHistoryModal
+        isOpen={showEndHistoryModal}
+        historyID={currentConversationId}
+        averageMatch={generateAverageMatch()}
+        onClose={() => setShowEndHistoryModal(false)}
       />
     </Stack>
   )
