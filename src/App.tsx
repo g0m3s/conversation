@@ -1,6 +1,7 @@
 import { conversations } from './utils/talks'
 import { Stack, Typography } from '@mui/material'
 import { useEffect, useMemo, useState } from 'react'
+import { useIsDarkMode } from './utils/useIsDarkMode'
 import { stringCompare } from './utils/stringCompare'
 import { Container, EndHistoryModal, SpeechButton, WelcomeModal } from './components'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
@@ -13,6 +14,7 @@ export const App = () => {
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition()
 
+  const isDarkMode = useIsDarkMode()
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [averageMatch, setAverageMatch] = useState<number[]>([0])
   const [showWelcomeModal, setShowWelcomeModal] = useState<boolean>(true)
@@ -97,34 +99,48 @@ export const App = () => {
     <Stack
       sx={{
         width: '100vw',
-        color: 'white',
         height: '100vh',
         overflow: 'hidden',
-        backgroundColor: 'primary.main',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        color: isDarkMode ? 'white' : 'primary.main',
+        backgroundColor: isDarkMode ? 'primary.main' : '#FFF',
       }}
     >
-      <Stack mt={3} textAlign='center'>
-        <Typography variant='h2'>História n° {currentConversationId}</Typography>
-      </Stack>
       <Stack
+        pb={5}
         width='100%'
-        height='100%'
-        alignItems='center'
-        justifyContent='space-between'
+        bgcolor='rgba(0,0,0,.1)'
+        sx={{
+          borderBottomLeftRadius: '30px',
+          borderBottomRightRadius: '30px',
+          boxShadow: '0px 0px 5px rgba(0,0,0,.1)',
+        }}
       >
-        <Container
-          matchPercentage={matchPercentage}
-          currentConversationId={currentConversationId}
-          currentConversationPosition={currentConversationPosition}
-        />
-
-        <SpeechButton
-          isLoading={isLoading}
-          listening={listening}
-          statRecorder={startRecorder}
-          stopRecorder={stopRecorder}
-        />
+        <Stack mt={3} textAlign='center'>
+          <Typography variant='h2'>História n° {currentConversationId}</Typography>
+        </Stack>
+        <Stack
+          width='100%'
+          height='100%'
+          alignItems='center'
+          justifyContent='space-between'
+        >
+          <Container
+            matchPercentage={matchPercentage}
+            currentConversationId={currentConversationId}
+            currentConversationPosition={currentConversationPosition}
+          />
+        </Stack>
       </Stack>
+
+      <SpeechButton
+        isLoading={isLoading}
+        listening={listening}
+        statRecorder={startRecorder}
+        stopRecorder={stopRecorder}
+      />
+
 
       <WelcomeModal
         isOpen={showWelcomeModal}

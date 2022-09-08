@@ -15,18 +15,18 @@ export const Container: React.FC<ContainerProps> = (props) => {
     currentConversationPosition,
   } = props
 
-  const borderColor = useMemo(() => {
+  const RGBBorderColor = useMemo(() => {
     if (matchPercentage === 0) {
-      return '#dedede'
+      return '255, 255, 255'
     }
     if (matchPercentage <= 30) {
-      return 'red'
+      return '255, 0, 0'
     }
     if (matchPercentage > 30 && matchPercentage <= 55) {
-      return 'orange'
+      return '255, 165, 0'
     }
     if (matchPercentage > 55) {
-      return 'green'
+      return '0,128,0'
     }
   }, [matchPercentage])
 
@@ -39,22 +39,21 @@ export const Container: React.FC<ContainerProps> = (props) => {
               p: 2,
               borderRadius: 2,
               bgcolor: 'primary.light',
-              border: `2px solid #dedede`
+              boxShadow: '0px 0px 5px rgba(0, 0, 0, .1)'
             }}
           >
-            <Typography>{currentConversationId && conversations[currentConversationId][currentConversationPosition].local}</Typography>
+            <Typography color='#FFF'>
+              {currentConversationId && conversations[currentConversationId][currentConversationPosition].local}
+            </Typography>
           </Stack>
           <Stack
             sx={{
               p: 2,
-              borderColor,
               width: 'auto',
-              bgcolor: '#FFF',
               borderRadius: 2,
               textAlign: 'right',
-              borderWidth: '3px',
-              borderStyle: 'solid',
-              color: 'primary.main',
+              bgcolor: `rgb(${RGBBorderColor})`,
+              color: matchPercentage === 0 ? 'primary.main' : '#FFF',
             }}
           >
             <Typography>{currentConversationId && conversations[currentConversationId][currentConversationPosition].user}</Typography>
