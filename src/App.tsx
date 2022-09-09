@@ -68,10 +68,18 @@ export const App = () => {
     return (matchSum / averageMatchLength).toFixed(2)
   }
 
+  const onCloseEndHistoryModal = () => {
+    SpeechRecognition.stopListening()
+    const randomId = getRandomInt(1, 3)
+    setCurrentConversationId(randomId)
+    setShowEndHistoryModal(false)
+  }
+
   useEffect(() => {
     if (currentConversationId !== 0) {
       if (matchPercentage > 80) {
         setAverageMatch(prev => [...prev, matchPercentage])
+        SpeechRecognition.stopListening()
         resetTranscript()
         if (currentConversationPosition === (conversations[currentConversationId].length - 1)) {
           SpeechRecognition.stopListening()
@@ -141,7 +149,6 @@ export const App = () => {
         stopRecorder={stopRecorder}
       />
 
-
       <WelcomeModal
         isOpen={showWelcomeModal}
         onClose={() => setShowWelcomeModal(false)}
@@ -149,9 +156,9 @@ export const App = () => {
 
       <EndHistoryModal
         isOpen={showEndHistoryModal}
+        onClose={onCloseEndHistoryModal}
         historyID={currentConversationId}
         averageMatch={generateAverageMatch()}
-        onClose={() => setShowEndHistoryModal(false)}
       />
     </Stack>
   )

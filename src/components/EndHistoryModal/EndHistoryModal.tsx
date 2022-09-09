@@ -1,8 +1,8 @@
 import React from 'react'
 import { Button } from '..'
 import Lottie from 'react-lottie'
-import welcomeAnimation from '../../assets/welcome.json'
 import { Typography, Dialog, Stack } from '@mui/material'
+import finishAnimation from '../../assets/finishAnimation2.json'
 
 interface EndHistoryModalProps {
   isOpen: boolean
@@ -34,9 +34,9 @@ export const EndHistoryModal: React.FC<EndHistoryModalProps> = (props) => {
           height={150}
           width={150}
           options={{
-            loop: true,
-            autoplay: true,
-            animationData: welcomeAnimation,
+            loop: false,
+            autoplay: false,
+            animationData: finishAnimation,
             rendererSettings: {
               preserveAspectRatio: 'xMidYMid slice'
             }
