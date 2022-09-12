@@ -24,11 +24,11 @@ const firebaseConfig = {
 initializeApp(firebaseConfig)
 
 root.render(
-  <React.StrictMode>
-    <ThemeProvider theme={Theme}>
+  // <React.StrictMode>
+  <ThemeProvider theme={Theme}>
     <App />
-    </ThemeProvider>
-  </React.StrictMode>
+  </ThemeProvider>
+  //</React.StrictMode>
 )
 
 // If you want to start measuring performance in your app, pass a function

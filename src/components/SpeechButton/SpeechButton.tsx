@@ -22,7 +22,7 @@ export const SpeechButton: React.FC<SpeechButtonProps> = (props) => {
   const isDarkMode = useIsDarkMode()
 
   return (
-    <Stack width='90%' mb={12}>
+    <Stack width={{ xs: '90%', lg: '75%' }} mb={12}>
       <Button
         loading={isLoading}
         variant={isDarkMode ? 'secondary' : 'primary'}
@@ -39,6 +39,9 @@ export const SpeechButton: React.FC<SpeechButtonProps> = (props) => {
                 rendererSettings: {
                   preserveAspectRatio: 'xMidYMid slice'
                 }
+              }}
+              style={{
+                filter: isDarkMode ? 'none' : 'invert(100%)'
               }}
             />
           ) : undefined}

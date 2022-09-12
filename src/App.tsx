@@ -18,20 +18,10 @@ export const App = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [averageMatch, setAverageMatch] = useState<number[]>([0])
   const [showWelcomeModal, setShowWelcomeModal] = useState<boolean>(true)
-  const [showEndHistoryModal, setShowEndHistoryModal] = useState<boolean>(false)
   const [currentConversationId, setCurrentConversationId] = useState<number>(0)
+  const [showEndHistoryModal, setShowEndHistoryModal] = useState<boolean>(false)
   const [currentConversationPosition, setCurrentConversationPosition] = useState<number>(0)
-
-  function getRandomInt(min: number, max: number): number {
-    min = Math.ceil(min)
-    max = Math.floor(max)
-    const result = Math.floor(Math.random() * (max - min) + min)
-
-    if (result !== currentConversationId) {
-      return result
-    }
-    return getRandomInt(min, max)
-  }
+  const isEndConversationPosition = currentConversationPosition === (conversations[currentConversationId].length - 1)
 
   const matchPercentage = useMemo(() => {
     return stringCompare(conversations[currentConversationId][currentConversationPosition].user, transcript)
@@ -42,14 +32,66 @@ export const App = () => {
     SpeechRecognition.startListening({ continuous: true, language: 'en-US' })
   }
 
+  const finishedHistoriesIds: string[] = (localStorage.getItem('finishedHistoriesIds') !== null) ? [...JSON.parse(localStorage.getItem('finishedHistoriesIds')!) as string[]] : []
+
+  const generateHistoryId = (): any => {
+    const min = 1
+    const max = conversations.length
+    const result = Math.floor(Math.random() * (max - min) + min)
+
+    const haveError = (finishedHistoriesIds.length > 0 && !!finishedHistoriesIds.find(item => item === String(result))) || result === currentConversationId
+
+    const isLastAvailableHistory = finishedHistoriesIds.length === (conversations.length - 1)
+    console.log('isLastAvailableHistory', isLastAvailableHistory)
+
+    if (isLastAvailableHistory) {
+      clearLocalStorage()
+      //melhorar isso depois. Tá chamando várias vezes.
+    }
+    if (haveError) {
+      return generateHistoryId()
+    }
+    return setCurrentConversationId(result)
+  }
+
+  const clearLocalStorage = () => {
+    localStorage.setItem('finishedHistoriesIds', JSON.stringify([String(currentConversationId)]))
+  }
+
+  const saveIdOnLocalStorage = () => {
+    const hasConflict = finishedHistoriesIds.length > 0 && !!(finishedHistoriesIds.find(item => item === String(currentConversationId)))
+
+    console.log('entrou', finishedHistoriesIds)
+
+    if (!hasConflict) {
+      if (finishedHistoriesIds.length > 0) {
+        const newFinishedHistoriesIds = [...finishedHistoriesIds, String(currentConversationId)]
+        console.log('1', newFinishedHistoriesIds)
+        localStorage.setItem('finishedHistoriesIds', JSON.stringify(newFinishedHistoriesIds))
+        return
+      }
+      const newFinishedHistoriesIds = [String(currentConversationId)]
+      console.log('2', newFinishedHistoriesIds)
+      localStorage.setItem('finishedHistoriesIds', JSON.stringify(newFinishedHistoriesIds))
+      return
+    }
+    return
+  }
+
+  const callNextHistory = () => {
+    SpeechRecognition.stopListening()
+    saveIdOnLocalStorage()
+    setIsLoading(false)
+    setShowEndHistoryModal(true)
+  }
+
   const stopRecorder = () => {
     setIsLoading(true)
     setTimeout(() => {
       SpeechRecognition.stopListening()
       if (matchPercentage >= 60) {
-        if (currentConversationPosition === (conversations[currentConversationId].length - 1)) {
-          setIsLoading(false)
-          setShowEndHistoryModal(true)
+        if (isEndConversationPosition) {
+          callNextHistory()
           return
         }
         setCurrentConversationPosition(prev => prev += 1)
@@ -70,9 +112,8 @@ export const App = () => {
 
   const onCloseEndHistoryModal = () => {
     SpeechRecognition.stopListening()
-    const randomId = getRandomInt(1, 3)
-    setCurrentConversationId(randomId)
     setShowEndHistoryModal(false)
+    return generateHistoryId()
   }
 
   useEffect(() => {
@@ -81,9 +122,8 @@ export const App = () => {
         setAverageMatch(prev => [...prev, matchPercentage])
         SpeechRecognition.stopListening()
         resetTranscript()
-        if (currentConversationPosition === (conversations[currentConversationId].length - 1)) {
-          SpeechRecognition.stopListening()
-          setShowEndHistoryModal(true)
+        if (isEndConversationPosition) {
+          callNextHistory()
           return
         }
         setCurrentConversationPosition(prev => prev += 1)
@@ -94,10 +134,9 @@ export const App = () => {
   }, [matchPercentage])
 
   useEffect(() => {
-    const randomId = getRandomInt(1, 3)
-    setCurrentConversationId(randomId)
+    generateHistoryId()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>
@@ -117,8 +156,8 @@ export const App = () => {
     >
       <Stack
         pb={5}
-        width='100%'
         bgcolor='rgba(0,0,0,.1)'
+        width={{ xs: '100%', lg: '75%' }}
         sx={{
           borderBottomLeftRadius: '30px',
           borderBottomRightRadius: '30px',
@@ -156,9 +195,9 @@ export const App = () => {
 
       <EndHistoryModal
         isOpen={showEndHistoryModal}
-        onClose={onCloseEndHistoryModal}
         historyID={currentConversationId}
         averageMatch={generateAverageMatch()}
+        onClose={() => onCloseEndHistoryModal()}
       />
     </Stack>
   )

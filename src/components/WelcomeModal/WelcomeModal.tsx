@@ -11,6 +11,20 @@ interface WelcomeModalProps {
 
 export const WelcomeModal: React.FC<WelcomeModalProps> = ({ isOpen, onClose }) => {
 
+  const Tip: React.FC<{ title: string, desc: string }> = (props) => {
+    return (
+      <Typography mt={1} justifyContent='center' fontWeight='bold' variant='body2'>
+        {props.title}
+        <Typography
+          variant='body2'
+          sx={{ textIndent: '1.5em', textAlign: 'justify' }}
+        >
+          {props.desc}
+        </Typography>
+      </Typography>
+    )
+  }
+
   return (
     <Dialog
       open={isOpen}
@@ -45,30 +59,18 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({ isOpen, onClose }) =
         <Typography mb={2} variant='body1' textAlign='center'>
           Este site tem como objetivo te ajudar a melhorar sua conversação em inglês.
         </Typography>
-        <Typography justifyContent='center' fontWeight='bold' variant='body2'>
-          Como usar:
-          <Typography
-            variant='body2'
-            sx={{ textIndent: '1.5em', textAlign: 'justify' }}
-          >
-            No topo da página há dois balões de conversa. Você deve falar o conteúdo do balão branco. Aperte o botão "Falar" e dê a autorização necessária. Após terminar de falar, aperte novamente no botão.
-          </Typography>
-        </Typography>
-        <Typography mt={2} justifyContent='center' fontWeight='bold' variant='body2'>
-          Dica:
-          <Typography
-            variant='body2'
-            sx={{ textIndent: '1.5em', textAlign: 'justify' }}
-          >
-            Fale de devagar. Desta forma você consegue articular melhor as palavras e sua precisão será maior.
-          </Typography>
-          <Typography
-            variant='body2'
-            sx={{ textIndent: '1.5em', textAlign: 'justify' }}
-          >
+        <Stack>
+          <Tip
+            title='Como usar:'
+            desc='No topo da página há dois balões de conversa. Você deve falar o conteúdo do balão branco. Aperte o botão "Falar" e dê a autorização necessária. Após terminar de falar, aperte novamente no botão.'
+          />
+          <Tip
+            title='Dica:'
+            desc={`Fale de devagar. Desta forma você consegue articular melhor as palavras e sua precisão será maior.\n\n
             Há várias histórias. Após terminar uma, você poderá fazer outra.
-          </Typography>
-        </Typography>
+            `}
+          />
+        </Stack>
 
         <Button
           fullWidth
