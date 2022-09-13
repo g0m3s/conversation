@@ -3,8 +3,8 @@ import { Stack, Typography } from '@mui/material'
 import { useEffect, useMemo, useState } from 'react'
 import { useIsDarkMode } from './utils/useIsDarkMode'
 import { stringCompare } from './utils/stringCompare'
-import { Container, EndHistoryModal, SpeechButton, WelcomeModal } from './components'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
+import { Container, EndAllHistoriesModal, EndHistoryModal, SpeechButton, WelcomeModal } from './components'
 
 export const App = () => {
   const {
@@ -21,7 +21,9 @@ export const App = () => {
   const [currentConversationId, setCurrentConversationId] = useState<number>(0)
   const [showEndHistoryModal, setShowEndHistoryModal] = useState<boolean>(false)
   const [currentConversationPosition, setCurrentConversationPosition] = useState<number>(0)
+  const [showLastAvailableHistoryModal, setShowLastAvailableHistoryModal] = useState<boolean>(false)
   const isEndConversationPosition = currentConversationPosition === (conversations[currentConversationId].length - 1)
+  const [finishedHistoriesIds, setFinishedHistoriesIds] = useState<string[]>((localStorage.getItem('finishedHistoriesIds') !== null) ? [...JSON.parse(localStorage.getItem('finishedHistoriesIds')!) as string[]] : [])
 
   const matchPercentage = useMemo(() => {
     return stringCompare(conversations[currentConversationId][currentConversationPosition].user, transcript)
@@ -32,8 +34,6 @@ export const App = () => {
     SpeechRecognition.startListening({ continuous: true, language: 'en-US' })
   }
 
-  const finishedHistoriesIds: string[] = (localStorage.getItem('finishedHistoriesIds') !== null) ? [...JSON.parse(localStorage.getItem('finishedHistoriesIds')!) as string[]] : []
-
   const generateHistoryId = (): any => {
     const min = 1
     const max = conversations.length
@@ -42,11 +42,11 @@ export const App = () => {
     const haveError = (finishedHistoriesIds.length > 0 && !!finishedHistoriesIds.find(item => item === String(result))) || result === currentConversationId
 
     const isLastAvailableHistory = finishedHistoriesIds.length === (conversations.length - 1)
-    console.log('isLastAvailableHistory', isLastAvailableHistory)
 
     if (isLastAvailableHistory) {
+      setShowLastAvailableHistoryModal(true)
       clearLocalStorage()
-      //melhorar isso depois. Tá chamando várias vezes.
+      return
     }
     if (haveError) {
       return generateHistoryId()
@@ -56,22 +56,20 @@ export const App = () => {
 
   const clearLocalStorage = () => {
     localStorage.setItem('finishedHistoriesIds', JSON.stringify([String(currentConversationId)]))
+    setFinishedHistoriesIds([String(currentConversationId)])
+    generateHistoryId()
   }
 
   const saveIdOnLocalStorage = () => {
     const hasConflict = finishedHistoriesIds.length > 0 && !!(finishedHistoriesIds.find(item => item === String(currentConversationId)))
 
-    console.log('entrou', finishedHistoriesIds)
-
     if (!hasConflict) {
       if (finishedHistoriesIds.length > 0) {
         const newFinishedHistoriesIds = [...finishedHistoriesIds, String(currentConversationId)]
-        console.log('1', newFinishedHistoriesIds)
         localStorage.setItem('finishedHistoriesIds', JSON.stringify(newFinishedHistoriesIds))
         return
       }
       const newFinishedHistoriesIds = [String(currentConversationId)]
-      console.log('2', newFinishedHistoriesIds)
       localStorage.setItem('finishedHistoriesIds', JSON.stringify(newFinishedHistoriesIds))
       return
     }
@@ -118,15 +116,8 @@ export const App = () => {
 
   useEffect(() => {
     if (currentConversationId !== 0) {
-      if (matchPercentage > 80) {
-        setAverageMatch(prev => [...prev, matchPercentage])
-        SpeechRecognition.stopListening()
-        resetTranscript()
-        if (isEndConversationPosition) {
-          callNextHistory()
-          return
-        }
-        setCurrentConversationPosition(prev => prev += 1)
+      if (matchPercentage > 85) {
+        stopRecorder()
         return
       }
     }
@@ -136,7 +127,7 @@ export const App = () => {
   useEffect(() => {
     generateHistoryId()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [])
 
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>
@@ -198,6 +189,11 @@ export const App = () => {
         historyID={currentConversationId}
         averageMatch={generateAverageMatch()}
         onClose={() => onCloseEndHistoryModal()}
+      />
+
+      <EndAllHistoriesModal
+        isOpen={showLastAvailableHistoryModal}
+        onClose={() => setShowLastAvailableHistoryModal(false)}
       />
     </Stack>
   )

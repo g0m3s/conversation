@@ -57,4 +57,27 @@ export const conversations: Array<ConversationsProps[]> = [
       user: "You're right. I want last year's model"
     },
   ],
+  // [
+  //   {
+  //     local: "Hi! How can I help you?",
+  //     user: "Hi! i would like to buy a new phone"
+  //   },
+  //   {
+  //     local: "Great! look at the showcase to see our options",
+  //     user: "Hmm... I liked that purple one. How much is it?"
+  //   },
+  //   {
+  //     local: "This one costs 1000 dollars",
+  //     user: "Wow! is expensive. And this white?"
+  //   },
+  //   {
+  //     local: "This one costs 800. It's last year's model.",
+  //     user: "Do you think it's worth paying more for the newer model?"
+  //   },
+  //   {
+  //     local: "Honestly, I don't think so. Last year's model meets all needs very well.",
+  //     user: "You're right. I want last year's model"
+  //   },
+  // ],
+  
 ]
