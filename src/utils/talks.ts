@@ -57,27 +57,42 @@ export const conversations: Array<ConversationsProps[]> = [
       user: "You're right. I want last year's model"
     },
   ],
-  // [
-  //   {
-  //     local: "Hi! How can I help you?",
-  //     user: "Hi! i would like to buy a new phone"
-  //   },
-  //   {
-  //     local: "Great! look at the showcase to see our options",
-  //     user: "Hmm... I liked that purple one. How much is it?"
-  //   },
-  //   {
-  //     local: "This one costs 1000 dollars",
-  //     user: "Wow! is expensive. And this white?"
-  //   },
-  //   {
-  //     local: "This one costs 800. It's last year's model.",
-  //     user: "Do you think it's worth paying more for the newer model?"
-  //   },
-  //   {
-  //     local: "Honestly, I don't think so. Last year's model meets all needs very well.",
-  //     user: "You're right. I want last year's model"
-  //   },
-  // ],
-  
+  [
+    {
+      local: "Hello, welcome to our coffee shop",
+      user: "Hi, i would like a medium size coffee"
+    },
+    {
+      local: "OK. What kind of coffee?",
+      user: "What are the types?"
+    },
+    {
+      local: "Espresso, cappuccino, mocha, double...",
+      user: "Okay. The mocha, please"
+    },
+    {
+      local: "Ok. What kind? a traditional, with caramel, with white chocolate, with orange, with...",
+      user: "Dude, you have a lot of coffee variations here. I want a traditional"
+    },
+    {
+      local: "Ok. Hot or cold?",
+      user: "Hot"
+    },
+    {
+      local: "Ok. Very hot, a little hot or more or less hot?",
+      user: "Oh my god i just wanted a simple coffee 😩"
+    },
+    {
+      local: "Ok. What kind? a traditional, with caramel, with white chocolate, with orange, with...",
+      user: "I'm gonna cry 😭"
+    },
+  ],
+
+]
+
+export const historyTitles = [
+  '',
+  'The park girl',
+  'The new phone',
+  'Please just a coffee'
 ]

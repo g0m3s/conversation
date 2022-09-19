@@ -1,4 +1,4 @@
-import { conversations } from './utils/talks'
+import { conversations, historyTitles } from './utils/talks'
 import { Stack, Typography } from '@mui/material'
 import { useEffect, useMemo, useState } from 'react'
 import { useIsDarkMode } from './utils/useIsDarkMode'
@@ -80,6 +80,7 @@ export const App = () => {
     SpeechRecognition.stopListening()
     saveIdOnLocalStorage()
     setIsLoading(false)
+    setCurrentConversationPosition(0)
     setShowEndHistoryModal(true)
   }
 
@@ -156,7 +157,8 @@ export const App = () => {
         }}
       >
         <Stack mt={3} textAlign='center'>
-          <Typography variant='h2'>História n° {currentConversationId}</Typography>
+          <Typography variant='h2'>"{historyTitles[currentConversationId]}"</Typography>
+          {/* <Typography variant='h2'>História n° {currentConversationId}</Typography> */}
         </Stack>
         <Stack
           width='100%'
