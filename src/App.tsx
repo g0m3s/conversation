@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useIsDarkMode } from './utils/useIsDarkMode'
 import { stringCompare } from './utils/stringCompare'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
-import { Container, EndAllHistoriesModal, EndHistoryModal, SpeechButton, WelcomeModal } from './components'
+import { Container, EndAllHistoriesModal, EndHistoryModal, SpeechButton, TipsSection, WelcomeModal } from './components'
 
 export const App = () => {
   const {
@@ -138,48 +138,55 @@ export const App = () => {
     <Stack
       sx={{
         width: '100vw',
-        height: '100vh',
-        overflow: 'hidden',
+        overflowX: 'hidden',
         alignItems: 'center',
-        justifyContent: 'space-between',
         color: isDarkMode ? 'white' : 'primary.main',
         backgroundColor: isDarkMode ? 'primary.main' : '#FFF',
       }}
     >
       <Stack
-        pb={5}
-        bgcolor='rgba(0,0,0,.1)'
-        width={{ xs: '100%', lg: '75%' }}
         sx={{
-          borderBottomLeftRadius: '30px',
-          borderBottomRightRadius: '30px',
-          boxShadow: '0px 0px 5px rgba(0,0,0,.1)',
+          width: '100%',
+          minHeight: '95vh',
+          alignItems: 'center',
+          justifyContent: 'space-between',
         }}
       >
-        <Stack mt={3} textAlign='center'>
-          <Typography variant='h2'>"{historyTitles[currentConversationId]}"</Typography>
-          {/* <Typography variant='h2'>História n° {currentConversationId}</Typography> */}
-        </Stack>
         <Stack
-          width='100%'
-          height='100%'
-          alignItems='center'
-          justifyContent='space-between'
+          pb={5}
+          bgcolor='rgba(0,0,0,.1)'
+          width={{ xs: '100%', lg: '75%' }}
+          sx={{
+            borderBottomLeftRadius: '30px',
+            borderBottomRightRadius: '30px',
+            boxShadow: '0px 0px 5px rgba(0,0,0,.1)',
+          }}
         >
-          <Container
-            matchPercentage={matchPercentage}
-            currentConversationId={currentConversationId}
-            currentConversationPosition={currentConversationPosition}
-          />
+          <Stack mt={3} textAlign='center'>
+            <Typography variant='h2'>"{historyTitles[currentConversationId]}"</Typography>
+            {/* <Typography variant='h2'>História n° {currentConversationId}</Typography> */}
+          </Stack>
+          <Stack
+            width='100%'
+            height='100%'
+            alignItems='center'
+            justifyContent='space-between'
+          >
+            <Container
+              matchPercentage={matchPercentage}
+              currentConversationId={currentConversationId}
+              currentConversationPosition={currentConversationPosition}
+            />
+          </Stack>
         </Stack>
-      </Stack>
 
-      <SpeechButton
-        isLoading={isLoading}
-        listening={listening}
-        statRecorder={startRecorder}
-        stopRecorder={stopRecorder}
-      />
+        <SpeechButton
+          isLoading={isLoading}
+          listening={listening}
+          statRecorder={startRecorder}
+          stopRecorder={stopRecorder}
+        />
+      </Stack>
 
       <WelcomeModal
         isOpen={showWelcomeModal}
@@ -197,6 +204,8 @@ export const App = () => {
         isOpen={showLastAvailableHistoryModal}
         onClose={() => setShowLastAvailableHistoryModal(false)}
       />
+
+      <TipsSection />
     </Stack>
   )
 }

@@ -1,5 +1,6 @@
 export * from './Button'
 export * from './Container'
+export * from './TipsSection'
 export * from './WelcomeModal'
 export * from './SpeechButton'
 export * from './EndHistoryModal'
