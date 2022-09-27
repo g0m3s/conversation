@@ -26,7 +26,7 @@ export const TipsSection: React.FC = () => {
   )
 
   return (
-    <Stack py={3} bgcolor='#FFF' width='100%' alignItems='center' color='#2d333b'>
+    <Stack pt={1.5} pb={3} bgcolor='#FFF' width='100%' alignItems='center' color='#2d333b'>
       <Stack width={{ xs: '95%', lg: '90%' }}>
         <Typography fontSize='45px' mb={3} textAlign='center' variant='h1'>Dicas para melhorar sua conversação</Typography>
 

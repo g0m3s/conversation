@@ -147,7 +147,7 @@ export const App = () => {
       <Stack
         sx={{
           width: '100%',
-          minHeight: '95vh',
+          minHeight: '94vh',
           alignItems: 'center',
           justifyContent: 'space-between',
         }}
