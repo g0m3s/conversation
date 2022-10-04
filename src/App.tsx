@@ -22,11 +22,11 @@ export const App = () => {
   const [showEndHistoryModal, setShowEndHistoryModal] = useState<boolean>(false)
   const [currentConversationPosition, setCurrentConversationPosition] = useState<number>(0)
   const [showLastAvailableHistoryModal, setShowLastAvailableHistoryModal] = useState<boolean>(false)
-  const isEndConversationPosition = currentConversationPosition === (conversations[currentConversationId].length - 1)
   const [finishedHistoriesIds, setFinishedHistoriesIds] = useState<string[]>((localStorage.getItem('finishedHistoriesIds') !== null) ? [...JSON.parse(localStorage.getItem('finishedHistoriesIds')!) as string[]] : [])
 
   const matchPercentage = useMemo(() => {
-    return stringCompare(conversations[currentConversationId][currentConversationPosition].user, transcript)
+    const t = !!conversations[currentConversationId][currentConversationPosition]?.user
+    return t ? stringCompare(conversations[currentConversationId][currentConversationPosition].user, transcript) : 0
   }, [currentConversationId, currentConversationPosition, transcript])
 
   const startRecorder = () => {
@@ -41,13 +41,6 @@ export const App = () => {
 
     const haveError = (finishedHistoriesIds.length > 0 && !!finishedHistoriesIds.find(item => item === String(result))) || result === currentConversationId
 
-    const isLastAvailableHistory = finishedHistoriesIds.length === (conversations.length - 1)
-
-    if (isLastAvailableHistory) {
-      setShowLastAvailableHistoryModal(true)
-      clearLocalStorage()
-      return
-    }
     if (haveError) {
       return generateHistoryId()
     }
@@ -55,16 +48,24 @@ export const App = () => {
   }
 
   const clearLocalStorage = () => {
-    localStorage.setItem('finishedHistoriesIds', JSON.stringify([String(currentConversationId)]))
-    setFinishedHistoriesIds([String(currentConversationId)])
+    localStorage.setItem('finishedHistoriesIds', JSON.stringify(["0", String(currentConversationId)]))
+    setFinishedHistoriesIds(["0", String(currentConversationId)])
     generateHistoryId()
   }
 
+  const lastAvailableHistory = () => {
+    setCurrentConversationId(1)
+    setCurrentConversationPosition(0)
+    setShowLastAvailableHistoryModal(true)
+    clearLocalStorage()
+  }
+
   const saveIdOnLocalStorage = () => {
-    const hasConflict = finishedHistoriesIds.length > 0 && !!(finishedHistoriesIds.find(item => item === String(currentConversationId)))
+    const isValidLength = finishedHistoriesIds.length > 0
+    const hasConflict = isValidLength && !!(finishedHistoriesIds.find(item => item === String(currentConversationId)))
 
     if (!hasConflict) {
-      if (finishedHistoriesIds.length > 0) {
+      if (isValidLength) {
         const newFinishedHistoriesIds = [...finishedHistoriesIds, String(currentConversationId)]
         localStorage.setItem('finishedHistoriesIds', JSON.stringify(newFinishedHistoriesIds))
         return
@@ -77,9 +78,15 @@ export const App = () => {
   }
 
   const callNextHistory = () => {
+    const isLastAvailableHistory = finishedHistoriesIds.length === (conversations.length - 1)
+
     SpeechRecognition.stopListening()
-    saveIdOnLocalStorage()
     setIsLoading(false)
+    if (isLastAvailableHistory) {
+      lastAvailableHistory()
+      return
+    }
+    saveIdOnLocalStorage()
     setCurrentConversationPosition(0)
     setShowEndHistoryModal(true)
   }
@@ -89,6 +96,7 @@ export const App = () => {
     setTimeout(() => {
       SpeechRecognition.stopListening()
       if (matchPercentage >= 60) {
+        const isEndConversationPosition = currentConversationPosition === (conversations[currentConversationId].length - 1)
         if (isEndConversationPosition) {
           callNextHistory()
           return
