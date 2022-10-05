@@ -3,30 +3,29 @@ import Lottie from 'react-lottie'
 import { Stack } from '@mui/material'
 import { useIsDarkMode } from '../../utils/useIsDarkMode'
 import recordingAnimation from '../../assets/recording.json'
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 
 interface SpeechButtonProps {
   isLoading: boolean
-  listening: boolean
-  statRecorder: () => void
   stopRecorder: () => void
 }
 
 export const SpeechButton: React.FC<SpeechButtonProps> = (props) => {
-  const {
-    listening,
-    isLoading,
-    statRecorder,
-    stopRecorder,
-  } = props
-
   const isDarkMode = useIsDarkMode()
+  const { isLoading, stopRecorder } = props
+  const { resetTranscript, listening } = useSpeechRecognition()
+
+  const startRecorder = () => {
+    resetTranscript()
+    SpeechRecognition.startListening({ continuous: true, language: 'en-US' })
+  }
 
   return (
     <Stack width={{ xs: '90%', lg: '75%' }} mb={12}>
       <Button
         loading={isLoading}
         variant={isDarkMode ? 'secondary' : 'primary'}
-        onClick={listening ? stopRecorder : statRecorder}
+        onClick={listening ? stopRecorder : startRecorder}
         startIcon={
           listening ? (
             <Lottie
