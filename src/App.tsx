@@ -1,4 +1,5 @@
-import { Stack, Typography } from '@mui/material'
+import waveImage from './assets/wave.svg'
+import { Box, Stack, Typography } from '@mui/material'
 import { useEffect, useMemo, useState } from 'react'
 import { useIsDarkMode } from './utils/useIsDarkMode'
 import { stringCompare } from './utils/stringCompare'
@@ -123,21 +124,23 @@ export const App = () => {
           width: '100%',
           minHeight: '94vh',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          // justifyContent: 'space-between',
         }}
       >
         <Stack
           pb={5}
-          bgcolor='rgba(0,0,0,.1)'
+          bgcolor='#e8eaed'
           width={{ xs: '100%', lg: '75%' }}
           sx={{
-            borderBottomLeftRadius: '30px',
-            borderBottomRightRadius: '30px',
+            // borderBottomLeftRadius: '30px',
+            // borderBottomRightRadius: '30px',
             boxShadow: '0px 0px 5px rgba(0,0,0,.1)',
           }}
         >
           <Stack mt={3} textAlign='center'>
-            <Typography variant='h2'>"{historyTitles[currentConversationId]}"</Typography>
+            <Typography variant='h2' color='primary.main'>
+              "{historyTitles[currentConversationId]}"
+            </Typography>
           </Stack>
           <Stack
             width='100%'
@@ -151,6 +154,18 @@ export const App = () => {
               currentConversationPosition={currentConversationPosition}
             />
           </Stack>
+        </Stack>
+        <Stack alignItems='center' width='100%'>
+          <Box
+            component='img'
+            sx={{
+              objectFit: 'fill',
+              transform: 'rotate(-180deg)',
+              width: { xs: '100vw', lg: '75vw' },
+              filter: 'drop-shadow(0px -5px 3px rgba(0, 0, 0, .02))'
+            }}
+            src={waveImage}
+          />
         </Stack>
         <SpeechButton isLoading={isLoading} stopRecorder={stopRecorder} />
       </Stack>
