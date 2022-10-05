@@ -22,10 +22,10 @@ export const Container: React.FC<ContainerProps> = (props) => {
     if (matchPercentage <= 30) {
       return '255, 0, 0'
     }
-    if (matchPercentage > 30 && matchPercentage <= 55) {
+    if (matchPercentage > 30 && matchPercentage <= 60) {
       return '255, 165, 0'
     }
-    if (matchPercentage > 55) {
+    if (matchPercentage > 60) {
       return '0,128,0'
     }
   }, [matchPercentage])

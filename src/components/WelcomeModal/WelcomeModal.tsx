@@ -66,7 +66,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({ isOpen, onClose }) =
           />
           <Tip
             title='Dica:'
-            desc={`Fale de devagar. Desta forma você consegue articular melhor as palavras e sua precisão será maior.\n\n
+            desc={`Fale devagar. Desta forma você consegue articular melhor as palavras e sua precisão será maior.\n\n
             Há várias histórias. Após terminar uma, você poderá fazer outra.
             `}
           />
