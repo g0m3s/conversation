@@ -29,11 +29,7 @@ export const conversations: Array<ConversationsProps[]> = [
     {
       local: "I do. There's a coffee shop close by, you can walk.",
       user: "So let's go?"
-    },
-    {
-      local: "Yes let's go!!",
-      user: ""
-    },
+    }
   ],
   [
     {
@@ -42,7 +38,7 @@ export const conversations: Array<ConversationsProps[]> = [
     },
     {
       local: "Great! look at the showcase to see our options",
-      user: "Hmm... I liked that purple one. How much is it?"
+      user: "I liked that purple one. How much is it?"
     },
     {
       local: "This one costs 1000 dollars",
@@ -54,7 +50,7 @@ export const conversations: Array<ConversationsProps[]> = [
     },
     {
       local: "Honestly, I don't think so. Last year's model meets all needs very well.",
-      user: "You're right. I want last year's model"
+      user: "You are right. I want last year's model"
     },
   ],
   [
@@ -87,12 +83,50 @@ export const conversations: Array<ConversationsProps[]> = [
       user: "I'm gonna cry 😭"
     },
   ],
-
+  [
+    {
+      local: "Hello, welcome to our airline check-in. What's your flight?",
+      user: "Hi! my flight is to Brazil at nine o'clock"
+    },
+    {
+      local: "Sorry, did you say nine o'clock?",
+      user: "Yes! at 9 a.m."
+    },
+    {
+      local: "Look, boarding for this flight has already been closed 😕. It is no longer possible to enter.",
+      user: "What? it's still 8:40. 20 minutes to the flight."
+    },
+    {
+      local: "So... 9 a.m. is the flight departure time. Boarding was until half past eight.",
+      user: "I can't believe I missed the flight"
+    },
+    {
+      local: "I'm sorry! at the moment there is nothing to do",
+      user: "And now? how do i get home?"
+    },
+    {
+      local: "We have another flight to Brazil that leaves in six hours. Would you like to change your ticket? we have few seats left.",
+      user: "Damn, do I have to wait six hours?"
+    },
+    {
+      local: "It's the only plane we have to Brazil today 😕",
+      user: "Everything's fine. Could you change my ticket please?"
+    },
+    {
+      local: "Of course!. But unfortunately there is a fifty dollar fee, ok?!",
+      user: "Okay, I have no other option..."
+    },
+    {
+      local: "Ready! here's your ticket. Thank you so much for flying with us 😄",
+      user: "Thank you so much for your service and patience."
+    },
+  ]
 ]
 
 export const historyTitles = [
   '',
   'The park girl',
   'The new phone',
-  'Please just a coffee'
+  'Please just a coffee',
+  'I missed my flight'
 ]

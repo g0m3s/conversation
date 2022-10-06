@@ -28,7 +28,7 @@ export const App = () => {
     : []
 
   const matchPercentage = useMemo(() => {
-    const isAvailable = !!conversations[currentConversationId][currentConversationPosition]?.user
+    const isAvailable = !!conversations[currentConversationId][currentConversationPosition].user && !!conversations[currentConversationId][currentConversationPosition].local
     return isAvailable ? stringCompare(conversations[currentConversationId][currentConversationPosition].user, transcript) : 0
   }, [currentConversationId, currentConversationPosition, transcript])
 
@@ -108,6 +108,9 @@ export const App = () => {
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>
   }
+
+  console.log(transcript)
+
 
   return (
     <Stack

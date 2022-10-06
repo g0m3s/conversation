@@ -21,7 +21,7 @@ export const SpeechButton: React.FC<SpeechButtonProps> = (props) => {
   }
 
   return (
-    <Stack width={{ xs: '90%', lg: '75%' }} mb={12}>
+    <Stack mt={2} width={{ xs: '90%', lg: '75%' }} mb={12}>
       <Button
         loading={isLoading}
         variant={isDarkMode ? 'secondary' : 'primary'}

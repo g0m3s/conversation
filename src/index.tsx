@@ -7,6 +7,7 @@ import { initializeApp } from 'firebase/app'
 import reportWebVitals from './reportWebVitals'
 import { ThemeProvider } from '@mui/material'
 import { getAnalytics } from 'firebase/analytics'
+import { StrictMode } from 'react'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -27,11 +28,11 @@ const app = initializeApp(firebaseConfig)
 getAnalytics(app)
 
 root.render(
-  // <React.StrictMode>
+  <StrictMode>
   <ThemeProvider theme={Theme}>
     <App />
   </ThemeProvider>
-  //</React.StrictMode>
+  </StrictMode>
 )
 
 // If you want to start measuring performance in your app, pass a function

@@ -31,6 +31,11 @@ export const generateHistoryId = (currentConversationId: number, setCurrentConve
     ? [...JSON.parse(localStorage.getItem('finishedHistoriesIds')!) as string[]]
     : []
 
+  if (finishedHistoriesIds.length === max) {
+    localStorage.setItem('finishedHistoriesIds', JSON.stringify(["0"]))
+    return
+  }
+
   const haveError = (finishedHistoriesIds.length > 0 && !!finishedHistoriesIds.find(item => item === String(result))) || result === currentConversationId
 
   if (haveError) {

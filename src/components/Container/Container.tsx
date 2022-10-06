@@ -80,9 +80,11 @@ export const Container: React.FC<ContainerProps> = (props) => {
     }
   }
 
+  const isValid = currentConversationId !== 0 && !!conversations[currentConversationId][currentConversationPosition]
+
   return (
     <Stack mt={5} width='90%'>
-      {currentConversationId !== 0 ? conversations[currentConversationId] && (
+      {isValid && (
         <Stack gap={2} width='100%'>
           <Stack sx={leftBubbleStyle}>
             <Typography color='#FFF'>
@@ -93,7 +95,7 @@ export const Container: React.FC<ContainerProps> = (props) => {
             <Typography>{currentConversationId && conversations[currentConversationId][currentConversationPosition].user}</Typography>
           </Stack>
         </Stack>
-      ) : undefined}
+      )}
       <Stack>
         <Typography
           mt={2}
