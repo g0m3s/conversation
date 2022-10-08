@@ -1,7 +1,8 @@
+import { hotjar } from 'react-hotjar'
 import waveImage from './assets/wave.svg'
-import { Box, Stack, Typography } from '@mui/material'
 import { useEffect, useMemo, useState } from 'react'
 import { useIsDarkMode } from './utils/useIsDarkMode'
+import { Box, Stack, Typography } from '@mui/material'
 import { stringCompare } from './utils/stringCompare'
 import { conversations, historyTitles } from './utils/talks'
 import { generateHistoryId, saveIdOnLocalStorage } from './utils/functions'
@@ -105,12 +106,13 @@ export const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    hotjar.initialize(3193036, 6)
+  }, [])
+
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>
   }
-
-  console.log(transcript)
-
 
   return (
     <Stack

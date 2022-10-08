@@ -1,5 +1,6 @@
 import './index.css'
 import App from './App'
+import { StrictMode } from 'react'
 import { Theme } from './utils/theme'
 import ReactDOM from 'react-dom/client'
 import './assets/TTCommons/FontFace.css'
@@ -7,7 +8,6 @@ import { initializeApp } from 'firebase/app'
 import reportWebVitals from './reportWebVitals'
 import { ThemeProvider } from '@mui/material'
 import { getAnalytics } from 'firebase/analytics'
-import { StrictMode } from 'react'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -29,13 +29,10 @@ getAnalytics(app)
 
 root.render(
   <StrictMode>
-  <ThemeProvider theme={Theme}>
-    <App />
-  </ThemeProvider>
+    <ThemeProvider theme={Theme}>
+      <App />
+    </ThemeProvider>
   </StrictMode>
 )
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
