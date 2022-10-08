@@ -8,6 +8,7 @@ import { conversations, historyTitles } from './utils/talks'
 import { generateHistoryId, saveIdOnLocalStorage } from './utils/functions'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import { Container, EndAllHistoriesModal, EndHistoryModal, SpeechButton, TipsSection, WelcomeModal } from './components'
+import { LandingPage } from './pages/landing'
 
 export const App = () => {
   const {
@@ -115,83 +116,84 @@ export const App = () => {
   }
 
   return (
-    <Stack
-      sx={{
-        width: '100vw',
-        overflowX: 'hidden',
-        alignItems: 'center',
-        color: isDarkMode ? 'white' : 'primary.main',
-        backgroundColor: isDarkMode ? 'primary.main' : '#FFF',
-      }}
-    >
-      <Stack
-        sx={{
-          width: '100%',
-          minHeight: '94vh',
-          alignItems: 'center',
-          // justifyContent: 'space-between',
-        }}
-      >
-        <Stack
-          pb={5}
-          bgcolor='#e8eaed'
-          width={{ xs: '100%', lg: '75%' }}
-          sx={{
-            // borderBottomLeftRadius: '30px',
-            // borderBottomRightRadius: '30px',
-            boxShadow: '0px 0px 5px rgba(0,0,0,.1)',
-          }}
-        >
-          <Stack mt={3} textAlign='center'>
-            <Typography variant='h2' color='primary.main'>
-              "{historyTitles[currentConversationId]}"
-            </Typography>
-          </Stack>
-          <Stack
-            width='100%'
-            height='100%'
-            alignItems='center'
-            justifyContent='space-between'
-          >
-            <Container
-              matchPercentage={matchPercentage}
-              currentConversationId={currentConversationId}
-              currentConversationPosition={currentConversationPosition}
-            />
-          </Stack>
-        </Stack>
-        <Stack alignItems='center' width='100%'>
-          <Box
-            component='img'
-            sx={{
-              objectFit: 'fill',
-              transform: 'rotate(-180deg)',
-              width: { xs: '100vw', lg: '75vw' },
-              filter: 'drop-shadow(0px -5px 3px rgba(0, 0, 0, .02))'
-            }}
-            src={waveImage}
-          />
-        </Stack>
-        <SpeechButton isLoading={isLoading} stopRecorder={stopRecorder} />
-      </Stack>
+    <LandingPage />
+    // <Stack
+    //   sx={{
+    //     width: '100vw',
+    //     overflowX: 'hidden',
+    //     alignItems: 'center',
+    //     color: isDarkMode ? 'white' : 'primary.main',
+    //     backgroundColor: isDarkMode ? 'primary.main' : '#FFF',
+    //   }}
+    // >
+    //   <Stack
+    //     sx={{
+    //       width: '100%',
+    //       minHeight: '94vh',
+    //       alignItems: 'center',
+    //       // justifyContent: 'space-between',
+    //     }}
+    //   >
+    //     <Stack
+    //       pb={5}
+    //       bgcolor='#e8eaed'
+    //       width={{ xs: '100%', lg: '75%' }}
+    //       sx={{
+    //         // borderBottomLeftRadius: '30px',
+    //         // borderBottomRightRadius: '30px',
+    //         boxShadow: '0px 0px 5px rgba(0,0,0,.1)',
+    //       }}
+    //     >
+    //       <Stack mt={3} textAlign='center'>
+    //         <Typography variant='h2' color='primary.main'>
+    //           "{historyTitles[currentConversationId]}"
+    //         </Typography>
+    //       </Stack>
+    //       <Stack
+    //         width='100%'
+    //         height='100%'
+    //         alignItems='center'
+    //         justifyContent='space-between'
+    //       >
+    //         <Container
+    //           matchPercentage={matchPercentage}
+    //           currentConversationId={currentConversationId}
+    //           currentConversationPosition={currentConversationPosition}
+    //         />
+    //       </Stack>
+    //     </Stack>
+    //     <Stack alignItems='center' width='100%'>
+    //       <Box
+    //         component='img'
+    //         sx={{
+    //           objectFit: 'fill',
+    //           transform: 'rotate(-180deg)',
+    //           width: { xs: '100vw', lg: '75vw' },
+    //           filter: 'drop-shadow(0px -5px 3px rgba(0, 0, 0, .02))'
+    //         }}
+    //         src={waveImage}
+    //       />
+    //     </Stack>
+    //     <SpeechButton isLoading={isLoading} stopRecorder={stopRecorder} />
+    //   </Stack>
 
-      <WelcomeModal
-        isOpen={showWelcomeModal}
-        onClose={() => setShowWelcomeModal(false)}
-      />
-      <EndHistoryModal
-        isOpen={showEndHistoryModal}
-        historyID={currentConversationId}
-        averageMatch={generateAverageMatch()}
-        onClose={() => onCloseEndHistoryModal()}
-      />
-      <EndAllHistoriesModal
-        isOpen={showLastAvailableHistoryModal}
-        onClose={() => setShowLastAvailableHistoryModal(false)}
-      />
+    //   <WelcomeModal
+    //     isOpen={showWelcomeModal}
+    //     onClose={() => setShowWelcomeModal(false)}
+    //   />
+    //   <EndHistoryModal
+    //     isOpen={showEndHistoryModal}
+    //     historyID={currentConversationId}
+    //     averageMatch={generateAverageMatch()}
+    //     onClose={() => onCloseEndHistoryModal()}
+    //   />
+    //   <EndAllHistoriesModal
+    //     isOpen={showLastAvailableHistoryModal}
+    //     onClose={() => setShowLastAvailableHistoryModal(false)}
+    //   />
 
-      <TipsSection />
-    </Stack>
+    //   <TipsSection />
+    // </Stack>
   )
 }
 
