@@ -1,1 +1,5 @@
 export * from './Header'
+export * from './WageSection'
+export * from './TrackPrecision'
+export * from './InitialSection'
+export * from './DownloadOnStores'
