@@ -4,10 +4,12 @@ import { Header } from './components'
 import { Button } from '../../components'
 import { styled } from '@mui/material/styles'
 import phoneFrame from '../../assets/i14frame.png'
-import { Box, Stack, Typography } from '@mui/material'
+import chartImage from '../../assets/images/chart.svg'
+import { Box, Link, Stack, Typography } from '@mui/material'
 import waveImage from '../../assets/images/fullWave.svg'
 import graphicIcon from '../../assets/images/graphicIcon.png'
 import insightIcon from '../../assets/images/insightIcon.png'
+import arrowRight from '../../assets/images/arrowRight.svg'
 import appStoreLogo from '../../assets/images/appStoreLogo.png'
 import lookingAtPhone from '../../assets/images/lookingAtPhone.jpg'
 import progressBar from '../../assets/animations/progressBar.json'
@@ -193,6 +195,51 @@ export const LandingPage: React.FC = () => {
           >
             Baixar agora
           </Button>
+        </Stack>
+      </Stack>
+      <Stack py={2}
+        height='75vh'
+        component='section'
+        alignItems='center'
+        justifyContent='center'
+      >
+        <Typography variant='h2'>Saber inglês pode aumentar seu salário em até 61%</Typography>
+        <Link
+          mb={4}
+          sx={{ textDecoration: 'none', color: 'grey.200' }}
+          href='https://g1.globo.com/pb/paraiba/especial-publicitario/yazigi-ruy-carneiro/noticia/2019/06/18/profissionais-que-dominam-ingles-tem-maiores-salarios-e-mais-oportunidades.ghtml'
+        >
+          fonte: G1
+        </Link>
+        <Stack width='100vw' direction='row'>
+          <Stack width='50%'>
+            <Box
+              component='img'
+              src={chartImage}
+              sx={{ objectFit: 'fill' }}
+            />
+          </Stack>
+          <Stack pr={4} pl={0}
+            width='50%'
+            component='ul'
+            mt={4} gap={3}
+            justifyContent='center'
+          >
+            <Stack gap={2} direction='row' component='li'>
+              <Box style={{ height: '20px', width: '20px' }} component='img' src={arrowRight} />
+              <Stack>
+                <Typography sx={{ fontWeight: 'bold' }}>Supervisor com inglês avançado</Typography>
+                <Typography sx={{ opacity: .7 }}>Histórias criadas pensando em situações do seu dia a dia e que te ajudarão a lidar com várias situações durante uma viagem ou uma nova moradia em outro país</Typography>
+              </Stack>
+            </Stack>
+            <Stack gap={2} direction='row' component='li'>
+              <Box style={{ height: '20px', width: '20px' }} component='img' src={arrowRight} />
+              <Stack>
+                <Typography sx={{ fontWeight: 'bold' }}>Acompanhe sua evolução</Typography>
+                <Typography sx={{ opacity: .7 }}>Confira sua precisão em tempo real e aumente sua média de precisão ao final de cada história</Typography>
+              </Stack>
+            </Stack>
+          </Stack>
         </Stack>
       </Stack>
     </>
