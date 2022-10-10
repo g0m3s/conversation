@@ -24,8 +24,8 @@ export const Header: React.FC = () => {
         <Stack width='90%' justifyContent='space-between' direction='row'>
           <Stack>
             <Lottie
-              height={50}
               width={50}
+              height={50}
               options={{
                 loop: false,
                 autoplay: true,
@@ -39,9 +39,10 @@ export const Header: React.FC = () => {
           <Button sx={{
             bgcolor: '#484cff',
             boxShadow: '0px 0px 10px #484cff',
+            height: { xs: '40px', lg: 'auto' }
           }}
           >
-            Acessar agora
+            Baixar agora
           </Button>
         </Stack>
       </AppBar>

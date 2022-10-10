@@ -11,7 +11,7 @@ export const WageSection: React.FC = () => {
   const WageCard: React.FC<WageCardProps> = (props) => {
     const { jobTitle, wage, color } = props
     return (
-      <Grid item xs={12} md={6} lg={4.5}>
+      <Grid width='100%' alignItems='center' justifyContent='center' item xs={11} md={6} lg={4.5}>
         <Stack
           p={2}
           gap={2}
@@ -19,18 +19,18 @@ export const WageSection: React.FC = () => {
           direction='row'
           borderRadius={3}
           alignItems='center'
+          width={{ xs: '90%', lg: 'auto' }}
           boxShadow='0px 0px 10px rgba(0,0,0,.12)'
           sx={{
             cursor: 'pointer',
             transition: 'all 300ms ease-out',
             ':hover': {
+              transform: 'translateY(-2px)',
               boxShadow: '0px 0px 30px rgba(0,0,0,.13)',
-              transform: 'translateY(-2px)'
             }
           }}
         >
-          <Stack width='10px' height='100%' borderRadius={2} bgcolor={color}
-          />
+          <Stack width='10px' height='100%' borderRadius={2} bgcolor={color} />
           <Stack>
             <Typography sx={{ fontWeight: 'bold', fontSize: '18px' }}>{jobTitle}:</Typography>
             <Typography whiteSpace='nowrap' sx={{ color: 'grey.900', display: 'flex' }}>
@@ -44,26 +44,33 @@ export const WageSection: React.FC = () => {
   }
 
   return (
-    <Stack py={2}
-      height='75vh'
+    <Stack mt={4} py={2}
+      minHeight='75vh'
       width='100vw'
       component='section'
       alignItems='center'
       justifyContent='center'
     >
-      <Typography fontSize='40px' variant='h1'>Saber inglês pode aumentar seu salário em até 61%</Typography>
+      <Typography
+        variant='h2'
+        textAlign={{ xs: 'center', lg: 'left' }}
+      >
+        Saber inglês pode aumentar seu salário em até 61%
+      </Typography>
       <Link
-        mb={8}
+        target='_blank'
+        mb={{ xs: 6, lg: 8 }}
         sx={{ textDecoration: 'none', color: 'grey.200' }}
         href='https://g1.globo.com/pb/paraiba/especial-publicitario/yazigi-ruy-carneiro/noticia/2019/06/18/profissionais-que-dominam-ingles-tem-maiores-salarios-e-mais-oportunidades.ghtml'
       >
         fonte: G1
       </Link>
       <Grid
+        gap={5}
         container
         width='100%'
-        mt={4} gap={5}
         direction='row'
+        mt={{ xs: 0, lg: 4 }}
         justifyContent='center'
       >
         <WageCard

@@ -18,42 +18,52 @@ export const DownloadOnStores: React.FC = () => {
   }));
 
   return (
-    <Stack direction='row'
+    <Stack
       py={2}
-      height='10vh'
       color='#FFF'
+      minHeight='10vh'
       bgcolor='#484cff'
       component='section'
       alignItems='center'
       justifyContent='center'
+      direction={{ xs: 'column', lg: 'row' }}
       sx={{ boxShadow: '0px 0px 10px #484cff' }}
     >
-      <Typography variant='h2' mr={10}>Confira nas principais lojas de aplicativos</Typography>
-      <Box
-        mr={4}
-        component='img'
-        src={googlePlayLogo}
-        sx={{
-          width: '150px',
-          cursor: 'pointer',
-          objectFit: 'fill',
-          filter: 'drop-shadow(0px 5px 3px rgba(0, 0, 0, .08))'
-        }}
-      />
-      <BootstrapTooltip placement='top' title='Ainda não disponível'>
+      <Typography
+        variant='h3'
+        textAlign='center'
+        mr={{ xs: 0, lg: 10 }}
+        fontSize={{ xs: '25px', lg: '54px' }}
+      >
+        Confira nas principais lojas de aplicativos
+      </Typography>
+      <Stack alignItems='center' direction='row'>
         <Box
+          mr={4}
           component='img'
-          src={appStoreLogo}
+          src={googlePlayLogo}
           sx={{
-            opacity: .5,
             width: '150px',
+            height: '60px',
             cursor: 'pointer',
-            ObjectFit: 'fill',
+            objectFit: 'fill',
             filter: 'drop-shadow(0px 5px 3px rgba(0, 0, 0, .08))'
           }}
         />
-      </BootstrapTooltip>
-
+        <BootstrapTooltip placement='top' title='Ainda não disponível'>
+          <Box
+            component='img'
+            src={appStoreLogo}
+            sx={{
+              opacity: .5,
+              width: '150px',
+              cursor: 'pointer',
+              ObjectFit: 'fill',
+              filter: 'drop-shadow(0px 5px 3px rgba(0, 0, 0, .08))'
+            }}
+          />
+        </BootstrapTooltip>
+      </Stack>
     </Stack>
   )
 }

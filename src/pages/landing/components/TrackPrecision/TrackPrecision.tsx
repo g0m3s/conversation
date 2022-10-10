@@ -6,53 +6,56 @@ import graphicIcon from '../../../../assets/images/graphicIcon.png'
 import insightIcon from '../../../../assets/images/insightIcon.png'
 import progressBar from '../../../../assets/animations/progressBar.json'
 import lookingAtPhone from '../../../../assets/images/lookingAtPhone.jpg'
+import { useIsMobile } from '../../../../hooks/useIsMobile'
 
 
 export const TrackPrecision: React.FC = () => {
-
+  const isMobile = useIsMobile()
   const [animationDivHaveFocus, setAnimationDivHaveFocus] = useState<boolean>(false)
 
   return (
     <Stack
       py={2}
       mt={8}
-      height='75vh'
-      direction='row'
+      minHeight='75vh'
       component='section'
       alignItems='center'
       justifyContent='center'
       onFocus={() => console.log('opa')}
+      direction={{ xs: 'column-reverse', lg: 'row' }}
     >
       <Stack
-        width='50%'
         height='100%'
         alignItems='center'
         position='relative'
+        mt={{ xs: 8, lg: 0 }}
         justifyContent='center'
+        width={{ xs: '100%', lg: '50%' }}
       >
         <Box
           component='img'
           src={lookingAtPhone}
           sx={{
-            height: '500px',
             objectFit: 'fill',
             borderRadius: '30px',
+            height: { xs: '450px', lg: '500px' },
             filter: 'drop-shadow(0px 0px 10px rgba(0, 0, 0, .5))'
           }}
         />
         <Stack
-          top={80}
-          left={450}
-          width={200}
-          height={200}
           bgcolor='#FFF'
           borderRadius='50%'
           position='absolute'
+          top={{ xs: -30, lg: 80 }}
+          width={{ xs: 150, lg: 200 }}
+          height={{ xs: 150, lg: 200 }}
+          right={{ xs: 2, lg: 'unset' }}
+          left={{ xs: 'unset', lg: 450 }}
         >
           <Lottie
             speed={.25}
-            width={200}
-            height={200}
+            width={isMobile ? 150 : 200}
+            height={isMobile ? 150 : 200}
             options={{
               loop: false,
               autoplay: animationDivHaveFocus,
@@ -64,10 +67,12 @@ export const TrackPrecision: React.FC = () => {
           />
         </Stack>
       </Stack>
-      <Stack pr={8} width='50%'
+      <Stack
+        pr={{ xs: 0, lg: 8 }}
         justifyContent='space-between'
+        width={{ xs: '90%', lg: '50%' }}
       >
-        <Typography fontSize='40px' variant='h1'>
+        <Typography textAlign={{ xs: 'center', lg: 'unset' }} variant='h2'>
           Acompanhe sua precisão em tempo real enquanto faz os exercícios
         </Typography>
         <Stack padding={0} mt={4} gap={3} component='ul'>
