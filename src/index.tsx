@@ -8,6 +8,7 @@ import { initializeApp } from 'firebase/app'
 import reportWebVitals from './reportWebVitals'
 import { ThemeProvider } from '@mui/material'
 import { getAnalytics } from 'firebase/analytics'
+import { BrowserRouter } from 'react-router-dom'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -29,9 +30,11 @@ getAnalytics(app)
 
 root.render(
   <StrictMode>
-    <ThemeProvider theme={Theme}>
-      <App />
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={Theme}>
+        <App />
+      </ThemeProvider>
+    </BrowserRouter>
   </StrictMode>
 )
 
