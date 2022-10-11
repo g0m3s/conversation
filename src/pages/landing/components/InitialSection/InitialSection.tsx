@@ -1,9 +1,9 @@
 import { Header } from '../Header'
 import { keyframes } from '@emotion/react'
 import { Box, Stack, Typography } from '@mui/material'
-import phoneFrame from '../../../../assets/i14frame.png'
 import { useIsMobile } from '../../../../hooks/useIsMobile'
 import waveImage from '../../../../assets/images/fullWave.svg'
+import phoneFrame from '../../../../assets/images/phoneFrame.png'
 
 export const InitialSection: React.FC = () => {
   const isMobile = useIsMobile()
@@ -46,7 +46,7 @@ export const InitialSection: React.FC = () => {
             Melhore sua conversação de forma simples e objetiva
           </Typography>
           <Typography px={{ xs: 2, lg: 0 }} mt={3} variant='body1'>
-            Uma ferramente prática para te levar a domina o inglês. Você aprende com histórias divertidas e situações que podem acontecer no dia a dia de um novo país.
+            Uma ferramenta prática para te levar a domina o inglês. Você aprende com histórias divertidas e situações que podem acontecer no dia a dia de um novo país.
           </Typography>
         </Stack>
         <Stack
@@ -63,7 +63,8 @@ export const InitialSection: React.FC = () => {
             alt='imagem de um telefone'
             src={phoneFrame}
             sx={{
-              width: { xs: '250px', lg: '500px' }
+              width: { xs: '250px', lg: '55%' },
+              filter: 'drop-shadow(0px 5px 5px rgba(0, 0, 0, .08))'
             }}
           />
         </Stack>

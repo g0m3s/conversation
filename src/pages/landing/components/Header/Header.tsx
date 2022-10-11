@@ -1,8 +1,7 @@
-import Lottie from 'react-lottie'
 import { Stack } from '@mui/system'
 import { AppBar, Box } from '@mui/material'
 import { Button } from '../../../../components'
-import speechBubble from '../../../../assets/animations/speechBubble.json'
+import logo from '../../../../assets/images/logo3.png'
 
 export const Header: React.FC = () => {
   return (
@@ -10,36 +9,30 @@ export const Header: React.FC = () => {
       height='10vh'
       alignItems='center'
       justifyContent='center'
-      sx={{
-        // opacity: .8
-      }}
     >
       <AppBar position="fixed" sx={{
         height: '10vh',
-        bgcolor: '#e8eaed',
         alignItems: 'center',
         justifyContent: 'center',
+        background: 'primary.main',
+        boxShadow: '0px 3px 5px rgba(45, 51, 59, .5)'
       }}
       >
-        <Stack width='90%' justifyContent='space-between' direction='row'>
-          <Stack>
-            <Lottie
-              width={50}
-              height={50}
-              options={{
-                loop: false,
-                autoplay: true,
-                animationData: speechBubble,
-                rendererSettings: {
-                  preserveAspectRatio: 'xMidYMid slice',
-                }
-              }}
-            />
-          </Stack>
+        <Stack height='100%' width='90%' alignItems='center' justifyContent='space-between' direction='row'>
+          <Box
+            component='img'
+            src={logo}
+            sx={{
+              height: '80%',
+              cursor: 'pointer',
+              ObjectFit: 'fill',
+              filter: 'drop-shadow(0px 0px 5px rgba(255, 255, 255, .08))'
+            }}
+          />
           <Button sx={{
             bgcolor: '#484cff',
             boxShadow: '0px 0px 10px #484cff',
-            height: { xs: '40px', lg: 'auto' }
+            height: { xs: '40px', lg: '68%' }
           }}
           >
             Baixar agora
