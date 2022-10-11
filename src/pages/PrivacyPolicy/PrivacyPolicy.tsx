@@ -1,14 +1,14 @@
 import { Stack, Typography } from '@mui/material'
 
 export const PrivacyPolicy: React.FC = () => (
-  <Stack>
+  <Stack p={4} alignItems='center'>
     <Typography variant='h1'>
       POLÍTICA DE PRIVACIDADE DE DADOS
     </Typography>
     <Typography variant='h2'>
       A "To Speak" valoriza e respeita a privacidade de todos os titulares de dados pessoais, e objetiva, por meio deste documento, demonstrar seu comprometimento em garantir, de modo razoável, a proteção dos dados e informações pessoais coletadas de seus usuários, observando e obedecendo à Lei Geral de Proteção de Dados e as demais legislações pertinentes ao tema.
     </Typography>
-    <Stack>
+    <Stack mt={3}>
       <Typography mb={2} variant='h3'>
         Quais dados coletamos?
       </Typography>
@@ -16,7 +16,7 @@ export const PrivacyPolicy: React.FC = () => (
         O único dado coletado se trata das palavras e/ou frases ditas pelo usuário, única e exclusivamente após o aceite para que a gravação de voz se inicie e exclusivamente apenas enquanto é informado (de forma visual) pelo aplicativo.
       </Typography>
     </Stack>
-    <Stack>
+    <Stack mt={3}>
       <Typography mb={2} variant='h3'>
         Como usamos seus dados?
       </Typography>
