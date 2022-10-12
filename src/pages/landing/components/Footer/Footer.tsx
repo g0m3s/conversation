@@ -1,5 +1,5 @@
-import { Box, Stack, Typography } from '@mui/material'
 import waveImage from '../../../../assets/images/wave2.svg'
+import { Box, Link, Stack, Typography } from '@mui/material'
 
 export const Footer: React.FC = () => {
   return (
@@ -18,6 +18,7 @@ export const Footer: React.FC = () => {
         }}
       />
       <Stack
+        color='#FFF'
         width='100vw'
         minHeight='15vh'
         bgcolor='#484cff'
@@ -25,7 +26,8 @@ export const Footer: React.FC = () => {
         alignItems='center'
         justifyContent='center'
       >
-        <Typography color='#FFF'>©To Speak • todos os direitos reservados</Typography>
+        <Typography>©To Speak • todos os direitos reservados</Typography>
+        <Link color='#FFF' href='/privacy-policy'>Política de privacidade</Link>
       </Stack>
     </Stack>
   )

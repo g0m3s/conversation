@@ -1,20 +1,34 @@
-import { useState } from 'react'
 import Lottie from 'react-lottie'
 import { Button } from '../../../../components'
+import { useEffect, useRef, useState } from 'react'
 import { Box, Stack, Typography } from '@mui/material'
+import { useIsMobile } from '../../../../hooks/useIsMobile'
 import graphicIcon from '../../../../assets/images/graphicIcon.png'
 import insightIcon from '../../../../assets/images/insightIcon.png'
 import progressBar from '../../../../assets/animations/progressBar.json'
 import lookingAtPhone from '../../../../assets/images/lookingAtPhone.jpg'
-import { useIsMobile } from '../../../../hooks/useIsMobile'
-
 
 export const TrackPrecision: React.FC = () => {
+  const tref = useRef<HTMLImageElement | null>()
   const isMobile = useIsMobile()
-  const [animationDivHaveFocus, setAnimationDivHaveFocus] = useState<boolean>(false)
+  const [scrollPosition, setScrollPosition] = useState(0);
+
+  const handleScroll = () => {
+    const position = window.pageYOffset;
+    setScrollPosition(position);
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    }
+  }, [])
 
   return (
     <Stack
+      gap={{ xs: 0, lg: 35 }}
+
       py={2}
       mt={8}
       minHeight='75vh'
@@ -26,42 +40,46 @@ export const TrackPrecision: React.FC = () => {
     >
       <Stack
         height='100%'
-        alignItems='center'
         position='relative'
         mt={{ xs: 8, lg: 0 }}
-        justifyContent='center'
         width={{ xs: '100%', lg: '50%' }}
+        alignItems={{ xs: 'center', lg: 'flex-end' }}
       >
         <Box
+          ref={tref}
           component='img'
           src={lookingAtPhone}
           sx={{
             objectFit: 'fill',
             borderRadius: '30px',
-            height: { xs: '450px', lg: '500px' },
+            height: { xs: 'auto', lg: '500px' },
+            width: { xs: '90%', lg: 'auto' },
             filter: 'drop-shadow(0px 0px 10px rgba(0, 0, 0, .5))'
           }}
         />
         <Stack
+          top={-30}
           bgcolor='#FFF'
           borderRadius='50%'
           position='absolute'
-          top={{ xs: -30, lg: 80 }}
+          right={{ xs: 2, lg: -50 }}
           width={{ xs: 150, lg: 200 }}
           height={{ xs: 150, lg: 200 }}
-          right={{ xs: 2, lg: 'unset' }}
-          left={{ xs: 'unset', lg: 450 }}
         >
           <Lottie
-            speed={.25}
+            speed={.2}
             width={isMobile ? 150 : 200}
             height={isMobile ? 150 : 200}
+            isPaused={
+              isMobile ? scrollPosition <= 970 : scrollPosition <= 770
+            }
             options={{
               loop: false,
-              autoplay: animationDivHaveFocus,
+              autoplay: false,
               animationData: progressBar,
               rendererSettings: {
-                preserveAspectRatio: 'xMidYMid slice'
+                preserveAspectRatio: 'xMidYMid slice',
+                progressiveLoad: true
               }
             }}
           />

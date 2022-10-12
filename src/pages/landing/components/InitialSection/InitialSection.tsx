@@ -37,15 +37,20 @@ export const InitialSection: React.FC = () => {
           pl={{ xs: 0, lg: 8 }}
           bgcolor='transparent'
           justifyContent='center'
-          width={{ xs: '100%', lg: '50%' }}
+          width={{ xs: '95%', lg: '50%' }}
         >
           <Typography
             variant='h1'
+            fontSize={{ xs: '35px', lg: '54px' }}
             textAlign={{ xs: 'center', lg: 'left' }}
           >
             Melhore sua conversação de forma simples e objetiva
           </Typography>
-          <Typography px={{ xs: 2, lg: 0 }} mt={3} variant='body1'>
+          <Typography
+            mt={3}
+            px={{ xs: 2, lg: 0 }}
+            textAlign={{ xs: 'justify', lg: 'left' }}
+          >
             Uma ferramenta prática para te levar a domina o inglês. Você aprende com histórias divertidas e situações que podem acontecer no dia a dia de um novo país.
           </Typography>
         </Stack>
