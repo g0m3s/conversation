@@ -27,7 +27,7 @@ export const DownloadOnStores: React.FC = () => {
       alignItems='center'
       justifyContent='center'
       direction={{ xs: 'column', lg: 'row' }}
-      sx={{ boxShadow: '0px 0px 10px #484cff' }}
+      sx={{ boxShadow: '0px 0px 10px rgba(72, 76, 255, .5)' }}
     >
       <Typography
         variant='h3'
@@ -50,7 +50,7 @@ export const DownloadOnStores: React.FC = () => {
             filter: 'drop-shadow(0px 5px 3px rgba(0, 0, 0, .08))'
           }}
         />
-        <BootstrapTooltip placement='top' title='Ainda não disponível'>
+        <BootstrapTooltip enterTouchDelay={0} placement='top' title='Ainda não disponível'>
           <Box
             component='img'
             src={appStoreLogo}

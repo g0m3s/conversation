@@ -30,8 +30,8 @@ export const Header: React.FC = () => {
           />
           <Button sx={{
             bgcolor: '#484cff',
-            boxShadow: '0px 0px 10px #484cff',
-            height: { xs: '45px', lg: '68%' }
+            height: { xs: '45px', lg: '68%' },
+            boxShadow: '0px 0px 10px rgba(72, 76, 255, .5)'
           }}
           >
             Baixar agora

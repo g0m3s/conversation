@@ -23,7 +23,7 @@ export const MethodologySection: React.FC = () => {
         sx={{ textIndent: '1.5em' }}
         textAlign={{ xs: 'justify', lg: 'justify' }}
       >
-        Metodologia focada em te ensinar de forma simples. Aqui você pratica sua fala e também sua leitura, de forma eficaz e eficiente. A enorme maioria das pessoas que buscam aprender um idioma (no momento existem 1,2bi de pessoas nessa posição!) estão atrás de melhores oportunidades, seja para seu desenvolvimento pessoal ou profissional. E é daí que surge nossa missão: <b style={{ color: '#484cff' }}>levar a todos a oportunidade de se desenvolver!.</b> 
+        Metodologia focada em te ensinar de forma simples. Aqui você pratica sua fala e também sua leitura, de forma eficaz e eficiente. A enorme maioria das pessoas que buscam aprender um idioma (no momento existem 1,2bi de pessoas nessa posição!) estão atrás de melhores oportunidades, seja para seu desenvolvimento pessoal ou profissional. E é daí que surge nossa missão: <b style={{ color: '#484cff' }}>levar a todos a oportunidade de se desenvolver!</b> 
       </Typography>
       
     </Stack>
