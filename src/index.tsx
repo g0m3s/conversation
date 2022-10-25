@@ -9,6 +9,7 @@ import reportWebVitals from './reportWebVitals'
 import { ThemeProvider } from '@mui/material'
 import { getAnalytics } from 'firebase/analytics'
 import { BrowserRouter } from 'react-router-dom'
+import { getFirestore } from 'firebase/firestore'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -25,6 +26,7 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
+export const db = getFirestore(app)
 
 getAnalytics(app)
 
