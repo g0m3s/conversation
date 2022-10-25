@@ -17,7 +17,6 @@ export const App = () => {
       <Route path='/privacy-policy' element={<PrivacyPolicy />} />
       <Route path='/lsdkjaghdhsafdaskd523561243sadsad' element={<AppPage />} />
     </Routes>
-
   )
 }
 

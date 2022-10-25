@@ -75,7 +75,7 @@ export const App: React.FC = () => {
       }
       setIsLoading(false)
       resetTranscript()
-    }, 1500)
+    }, 2000)
   }
 
   const generateAverageMatch = () => {

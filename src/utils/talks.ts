@@ -133,24 +133,30 @@ export const conversations: Array<ConversationsProps[]> = [
     {
       local: "Clara fought with me",
       user: "But you and Clara are best friends! What happened?"
-    }, 
+    },
     {
       local: "It's just that today at break I was playing with joão and I think she was sad about it",
       user: "But why didn't you invite her to play with you?"
-    }, 
+    },
     {
       local: "I don't know 😭 I thought she wouldn't want to play",
       user: "It's okay, son"
-    }, 
+    },
     {
       local: "What do I do now?",
       user: "Let's buy chocolates! Tomorrow you give it to her and apologize for not inviting her to play too, ok?"
-    }, 
+    },
     {
       local: "I hope she's sorry",
       user: "Dear, of course she will accept. Don't worry"
-    }, 
-  ]
+    },
+  ],
+  [
+    {
+      local: "",
+      user: ""
+    },
+  ],
 ]
 
 export const historyTitles = [
