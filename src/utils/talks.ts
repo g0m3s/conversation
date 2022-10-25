@@ -120,6 +120,36 @@ export const conversations: Array<ConversationsProps[]> = [
       local: "Ready! here's your ticket. Thank you so much for flying with us 😄",
       user: "Thank you so much for your service and patience."
     },
+  ],
+  [
+    {
+      local: "Mom! Dad!",
+      user: "Hi baby"
+    },
+    {
+      local: "Something happened to me at school today",
+      user: "What happened, son?"
+    },
+    {
+      local: "Clara fought with me",
+      user: "But you and Clara are best friends! What happened?"
+    }, 
+    {
+      local: "It's just that today at break I was playing with joão and I think she was sad about it",
+      user: "But why didn't you invite her to play with you?"
+    }, 
+    {
+      local: "I don't know 😭 I thought she wouldn't want to play",
+      user: "It's okay, son"
+    }, 
+    {
+      local: "What do I do now?",
+      user: "Let's buy chocolates! Tomorrow you give it to her and apologize for not inviting her to play too, ok?"
+    }, 
+    {
+      local: "I hope she's sorry",
+      user: "Dear, of course she will accept. Don't worry"
+    }, 
   ]
 ]
 
@@ -128,5 +158,6 @@ export const historyTitles = [
   'The park girl',
   'The new phone',
   'Please just a coffee',
-  'I missed my flight'
+  'I missed my flight',
+  'Friendship problems',
 ]
