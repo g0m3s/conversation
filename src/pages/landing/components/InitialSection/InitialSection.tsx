@@ -1,4 +1,4 @@
-import { Header } from '../Header'
+import { Header } from '../../../../components/Header'
 import { keyframes } from '@emotion/react'
 import waveImage from '../../../../assets/images/fullWave.svg'
 import { Box, Skeleton, Stack, SxProps, Typography } from '@mui/material'

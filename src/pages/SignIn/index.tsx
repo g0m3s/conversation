@@ -1,10 +1,11 @@
 import { db } from '../..'
+import { useState } from 'react'
 import { Box } from '@mui/system'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { doc, getDoc } from 'firebase/firestore'
-import { Button, Input } from '../../components'
 import { Stack, Typography } from '@mui/material'
+import { Button, Input, Header } from '../../components'
 import waveImage from '../../assets/images/fullWave.svg'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 
@@ -18,9 +19,10 @@ export const SignIn: React.FC = () => {
   const auth = getAuth()
   const navigate = useNavigate()
   const { register, handleSubmit } = useForm<SignInForm>()
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const onSubmit = (data: SignInForm) => {
-
+    setIsLoading(true)
     signInWithEmailAndPassword(auth, data.email, data.password)
       .then(async (userCredential) => {
 
@@ -35,6 +37,7 @@ export const SignIn: React.FC = () => {
         }
       })
       .catch((error) => {
+        setIsLoading(false)
         const errorMessage = error.message
         alert(errorMessage)
       })
@@ -42,12 +45,13 @@ export const SignIn: React.FC = () => {
 
   return (
     <Stack alignItems='center' width='100vw'>
+      <Header hideButton={true} />
       <Stack
+        pt={6}
         width='100%'
         bgcolor='#e8eaed'
         alignItems='center'
-        pt={{ xs: 6, lg: 0 }}
-        pb={10}
+        pb={{ xs: 10, lg: 2 }}
       >
         <Typography variant='h1'>Login</Typography>
         <Stack
@@ -73,7 +77,7 @@ export const SignIn: React.FC = () => {
           />
           <Stack width='80%'>
             <Typography textAlign='right' variant='body2'>Não tem conta?
-              <a href='google.com' style={{ color: 'rgb(0,128,0)', textDecoration: 'underline', marginLeft: 2 }}>
+              <a href='/signUp' style={{ color: 'rgb(0,128,0)', textDecoration: 'underline', marginLeft: 2 }}>
                 <b>
                   Cadastre-se
                 </b>
@@ -96,6 +100,7 @@ export const SignIn: React.FC = () => {
           fullWidth
           type='submit'
           form='signInForm'
+          loading={isLoading}
         >
           Login
         </Button>

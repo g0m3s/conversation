@@ -1,4 +1,5 @@
 import Lottie from 'react-lottie'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../../../../components'
 import { useEffect, useRef, useState } from 'react'
 import { Box, Stack, Typography } from '@mui/material'
@@ -11,6 +12,7 @@ import lookingAtPhone from '../../../../assets/images/lookingAtPhone.jpg'
 export const TrackPrecision: React.FC = () => {
   const tref = useRef<HTMLImageElement | null>()
   const isMobile = useIsMobile()
+  const navigate = useNavigate()
   const [scrollPosition, setScrollPosition] = useState(0);
 
   const handleScroll = () => {
@@ -114,8 +116,9 @@ export const TrackPrecision: React.FC = () => {
           bgcolor: '#484cff',
           boxShadow: '0px 0px 10px #484cff',
         }}
+          onClick={() => navigate('/login')}
         >
-          Baixar agora
+          Acessar agora
         </Button>
       </Stack>
     </Stack>

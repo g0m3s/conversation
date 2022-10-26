@@ -1,9 +1,12 @@
+import { Button } from '..'
 import { Stack } from '@mui/system'
 import { AppBar, Box } from '@mui/material'
-import { Button } from '../../../../components'
-import logo from '../../../../assets/images/logo4.png'
+import logo from '../../assets/images/logo4.png'
+import { useNavigate } from 'react-router-dom'
 
-export const Header: React.FC = () => {
+export const Header: React.FC<{ hideButton?: boolean }> = ({ hideButton = false }) => {
+  const navigate = useNavigate()
+
   return (
     <Box
       height='10vh'
@@ -15,12 +18,14 @@ export const Header: React.FC = () => {
         bgcolor: '#e8eaed',
         alignItems: 'center',
         justifyContent: 'center',
+        boxShadow: '0px 5px 10px rgba(0,0,0,.015)',
       }}
       >
         <Stack height='100%' width='90%' alignItems='center' justifyContent='space-between' direction='row'>
           <Box
-            component='img'
             src={logo}
+            component='img'
+            onClick={() => navigate('/')}
             sx={{
               height: '100%',
               cursor: 'pointer',
@@ -28,14 +33,17 @@ export const Header: React.FC = () => {
               borderRadius: '50%',
             }}
           />
-          <Button sx={{
-            bgcolor: '#484cff',
-            height: { xs: '45px', lg: '68%' },
-            boxShadow: '0px 0px 10px rgba(72, 76, 255, .5)'
-          }}
-          >
-            Baixar agora
-          </Button>
+          {!hideButton && (
+            <Button sx={{
+              bgcolor: '#484cff',
+              height: { xs: '45px', lg: '68%' },
+              boxShadow: '0px 0px 10px rgba(72, 76, 255, .5)'
+            }}
+              onClick={() => navigate('/login')}
+            >
+              Acessar agora
+            </Button>
+          )}
         </Stack>
       </AppBar>
     </Box>

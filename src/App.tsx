@@ -8,8 +8,8 @@ import { App as AppPage } from './pages/app'
 import { LandingPage } from './pages/landing'
 import { doc, getDoc } from 'firebase/firestore'
 import { PrivacyPolicy } from './pages/PrivacyPolicy'
-import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { ValidatePayment } from './pages/ValidatePayment'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 
 export const App = () => {
@@ -21,19 +21,19 @@ export const App = () => {
   }, [])
 
   onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      const userId = user.uid
-      const docRef = doc(db, 'validate-payment', userId)
-      const docSnap = await getDoc(docRef)
+    // if (user) {
+    //   const userId = user.uid
+    //   const docRef = doc(db, 'validate-payment', userId)
+    //   const docSnap = await getDoc(docRef)
 
-      if (docSnap.exists()) {
-        navigate('/app')
-      } else {
-        navigate('/payment')
-      }
-    } else {
-      navigate('/login?fromLogin=true')
-    }
+    //   if (docSnap.exists()) {
+    //     navigate('/app')
+    //   } else {
+    //     navigate('/payment')
+    //   }
+    // } else {
+    //   navigate('/login?fromLogin=true')
+    // }
   })
 
   return (

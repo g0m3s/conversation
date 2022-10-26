@@ -35,21 +35,25 @@ export const DownloadOnStores: React.FC = () => {
         mr={{ xs: 0, lg: 10 }}
         fontSize={{ xs: '25px', lg: '54px' }}
       >
-        Confira nas principais lojas de aplicativos
+        Em breve disponível nas principais lojas de aplicativos
+        {/* Confira nas principais lojas de aplicativos */}
       </Typography>
       <Stack alignItems='center' direction='row'>
-        <Box
-          mr={4}
-          component='img'
-          src={googlePlayLogo}
-          sx={{
-            width: '150px',
-            height: '60px',
-            cursor: 'pointer',
-            objectFit: 'fill',
-            filter: 'drop-shadow(0px 5px 3px rgba(0, 0, 0, .08))'
-          }}
-        />
+        <BootstrapTooltip enterTouchDelay={0} placement='top' title='Ainda não disponível'>
+          <Box
+            mr={4}
+            component='img'
+            src={googlePlayLogo}
+            sx={{
+              opacity: .5,
+              width: '150px',
+              height: '60px',
+              cursor: 'pointer',
+              objectFit: 'fill',
+              filter: 'drop-shadow(0px 5px 3px rgba(0, 0, 0, .08))'
+            }}
+          />
+        </BootstrapTooltip>
         <BootstrapTooltip enterTouchDelay={0} placement='top' title='Ainda não disponível'>
           <Box
             component='img'

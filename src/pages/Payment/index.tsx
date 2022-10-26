@@ -47,8 +47,27 @@ export const Payment: React.FC = () => {
           />
           <Stack gap={2} height='100%' >
             <Typography><b>Assinatura (única) - To Speak</b></Typography>
-            <Typography variant='body2'>Nossa plataforma possui um pequeno custo de adesão de apenas R$ 5,99 e que é pago uma única vez.</Typography>
+            <Typography variant='body2'>Nossa plataforma possui um pequeno custo de adesão de apenas <b style={{
+              textDecoration: 'line-through',
+              marginRight: 3
+            }}>R$ 5,99</b>
+              {/* <br />
+              <b style={{
+                margin: '0 2px',
+                color: 'rgb(0,128,0)'
+              }}>R$ 1,99</b> */}
+              e que é pago uma única vez.</Typography>
           </Stack>
+        </Stack>
+        <Stack
+          mt={2}
+          width='80%'
+          padding={2}
+          bgcolor='red'
+          borderRadius={2}
+          textAlign='center'
+        >
+          <Typography variant='body2' color='#FFF'>Preço promocional de <b style={{ fontSize: '16px' }}>R$ 1,99</b></Typography>
         </Stack>
       </Stack>
       <Box
@@ -64,7 +83,7 @@ export const Payment: React.FC = () => {
         <Button
           fullWidth
           onClick={() => {
-            window.open('https://mpago.la/2yPG1xy')
+            window.open('https://mpago.la/15r6Pk7')
           }}
         >
           Realizar pagamento
