@@ -107,7 +107,7 @@ export const Demo: React.FC = () => {
         variant='h2'
         mb={{ xs: 2, lg: 4 }}
       >
-        Faca um teste agora
+        Faça um teste agora
       </Typography>
       <Stack
         height='100%'
