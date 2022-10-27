@@ -1,5 +1,5 @@
-import { makeStyles as muiMakeStyles, Styles, WithStylesOptions } from '@mui/styles'
 import { Theme } from './theme'
+import { makeStyles as muiMakeStyles, Styles, WithStylesOptions } from '@mui/styles'
 
 type MuiMakeStyles = typeof muiMakeStyles
 type ThemeProps = typeof Theme

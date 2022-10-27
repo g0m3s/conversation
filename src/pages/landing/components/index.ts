@@ -1,3 +1,4 @@
+export * from './Demo'
 export * from './Footer'
 export * from './WageSection'
 export * from './TrackPrecision'

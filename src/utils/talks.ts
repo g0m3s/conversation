@@ -151,12 +151,12 @@ export const conversations: Array<ConversationsProps[]> = [
       user: "Dear, of course she will accept. Don't worry"
     },
   ],
-  [
-    {
-      local: "",
-      user: ""
-    },
-  ],
+  // [
+  //   {
+  //     local: "",
+  //     user: ""
+  //   },
+  // ],
 ]
 
 export const historyTitles = [

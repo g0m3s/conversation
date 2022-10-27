@@ -116,7 +116,7 @@ export const TrackPrecision: React.FC = () => {
           bgcolor: '#484cff',
           boxShadow: '0px 0px 10px #484cff',
         }}
-          onClick={() => navigate('/login')}
+          onClick={() => navigate('/signUp')}
         >
           Acessar agora
         </Button>

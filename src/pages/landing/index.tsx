@@ -1,12 +1,13 @@
 import { Stack } from '@mui/system'
-import { DownloadOnStores, Footer, InitialSection, MethodologySection, TrackPrecision, WageSection } from './components'
+import { Demo, Footer, InitialSection, MethodologySection, TrackPrecision, WageSection } from './components'
 
 export const LandingPage: React.FC = () => {
 
   return (
     <Stack sx={{ overflowX: 'hidden' }}>
       <InitialSection />
-      <DownloadOnStores />
+      <Demo />
+      {/* <DownloadOnStores /> */}
       <TrackPrecision />
       <WageSection />
       <MethodologySection />

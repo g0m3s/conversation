@@ -39,7 +39,7 @@ export const Header: React.FC<{ hideButton?: boolean }> = ({ hideButton = false 
               height: { xs: '45px', lg: '68%' },
               boxShadow: '0px 0px 10px rgba(72, 76, 255, .5)'
             }}
-              onClick={() => navigate('/login')}
+              onClick={() => navigate('/signUp')}
             >
               Acessar agora
             </Button>
