@@ -28,11 +28,7 @@ export const App = () => {
 
       if (docSnap.exists()) {
         navigate('/app')
-      } else {
-        navigate('/payment')
       }
-    } else {
-      navigate('/login?fromLogin=true')
     }
   })
 

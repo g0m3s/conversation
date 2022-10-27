@@ -1,19 +1,29 @@
 import { useEffect, useMemo, useState } from 'react'
 import waveImage from '../../assets/wave.svg'
+import { useNavigate } from 'react-router-dom'
 import { Box, Stack, Typography } from '@mui/material'
 import { useIsDarkMode } from '../../utils/useIsDarkMode'
 import { stringCompare } from '../../utils/stringCompare'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { conversations, historyTitles } from '../../utils/talks'
 import { generateHistoryId, saveIdOnLocalStorage } from '../../utils/functions'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import { Container, EndAllHistoriesModal, EndHistoryModal, SpeechButton, TipsSection, WelcomeModal } from '../../components'
 
 export const App: React.FC = () => {
+  const auth = getAuth()
+  const navigate = useNavigate()
   const {
     transcript,
     resetTranscript,
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition()
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      navigate('/login?fromLogin=true')
+    }
+  })
 
   const isDarkMode = useIsDarkMode()
   const [isLoading, setIsLoading] = useState<boolean>(false)
