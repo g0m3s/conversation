@@ -110,7 +110,7 @@ export const InitialSection: React.FC = () => {
             px={{ xs: 2, lg: 0 }}
             textAlign={{ xs: 'justify', lg: 'left' }}
           >
-            Uma ferramenta prática para te levar a domina o inglês. Você aprende com histórias divertidas e situações que podem acontecer no dia a dia de um novo país.
+            Uma ferramenta prática para te levar a dominar o inglês. Você aprende com histórias divertidas e situações que podem acontecer no dia a dia de um novo país.
           </Typography>
         </Stack>
         <Stack
