@@ -7,7 +7,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import { Stack, Typography } from '@mui/material'
 import { Button, Input, Header } from '../../components'
 import waveImage from '../../assets/images/fullWave.svg'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth'
 
 type SignInForm = {
   name: string
@@ -20,6 +20,18 @@ export const SignIn: React.FC = () => {
   const navigate = useNavigate()
   const { register, handleSubmit } = useForm<SignInForm>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const userId = user.uid
+      const docRef = doc(db, 'validate-payment', userId)
+      const docSnap = await getDoc(docRef)
+
+      if (docSnap.exists()) {
+        navigate('/app')
+      }
+    }
+  })
 
   const onSubmit = (data: SignInForm) => {
     setIsLoading(true)

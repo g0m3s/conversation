@@ -8,7 +8,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth'
 import { conversations, historyTitles } from '../../utils/talks'
 import { generateHistoryId, saveIdOnLocalStorage } from '../../utils/functions'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
-import { Container, EndAllHistoriesModal, EndHistoryModal, SpeechButton, TipsSection, WelcomeModal } from '../../components'
+import { Container, EndAllHistoriesModal, EndHistoryModal, SpeechButton, WelcomeModal } from '../../components'
 
 export const App: React.FC = () => {
   const auth = getAuth()

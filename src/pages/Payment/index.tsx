@@ -1,13 +1,30 @@
+import { db } from '../..'
 import { Box } from '@mui/system'
 import { Button } from '../../components'
 import logo from '../../assets/images/logo.png'
 import { Stack, Typography } from '@mui/material'
+import { doc, getDoc } from 'firebase/firestore'
 import waveImage from '../../assets/images/fullWave.svg'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 export const Payment: React.FC = () => {
+  const auth = getAuth()
+  const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const fromLogin = searchParams.get('fromLogin')
+
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const userId = user.uid
+      const docRef = doc(db, 'validate-payment', userId)
+      const docSnap = await getDoc(docRef)
+
+      if (docSnap.exists()) {
+        navigate('/app')
+      }
+    }
+  })
 
   return (
     <Stack alignItems='center' width='100vw'>

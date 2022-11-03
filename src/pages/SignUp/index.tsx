@@ -1,10 +1,12 @@
+import { db } from '../..'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { Button, Input, Header } from '../../components'
+import { doc, getDoc } from 'firebase/firestore'
 import { Stack, Typography, Box } from '@mui/material'
 import waveImage from '../../assets/images/fullWave.svg'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { Button, Input, Header } from '../../components'
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 
 type SignUpForm = {
   email: string
@@ -12,11 +14,22 @@ type SignUpForm = {
 }
 
 export const SignUp: React.FC = () => {
+  const auth = getAuth()
   const navigate = useNavigate()
   const { register, handleSubmit } = useForm<SignUpForm>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const auth = getAuth()
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const userId = user.uid
+      const docRef = doc(db, 'validate-payment', userId)
+      const docSnap = await getDoc(docRef)
+
+      if (docSnap.exists()) {
+        navigate('/app')
+      }
+    }
+  })
 
   const onSubmit = async (data: SignUpForm) => {
     setIsLoading(true)
