@@ -35,7 +35,8 @@ export const SignUp: React.FC = () => {
     setIsLoading(true)
     createUserWithEmailAndPassword(auth, data.email, data.password)
       .then(() => {
-        navigate('/payment')
+        // navigate('/payment')
+        navigate('/app')
       })
       .catch((error) => {
         setIsLoading(false)

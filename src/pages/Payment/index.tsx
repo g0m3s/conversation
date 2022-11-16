@@ -62,18 +62,13 @@ export const Payment: React.FC = () => {
               filter: 'drop-shadow(0px 5px 3px rgba(0, 0, 0, .08))'
             }}
           />
-          <Stack gap={2} height='100%' >
+          <Stack sx={{ opacity: .8 }} gap={2} height='100%' >
             <Typography><b>Assinatura (única) - To Speak</b></Typography>
             <Typography variant='body2'>Nossa plataforma possui um pequeno custo de adesão de apenas <b style={{
               textDecoration: 'line-through',
               marginRight: 3
             }}>R$ 5,99</b>
-              {/* <br />
-              <b style={{
-                margin: '0 2px',
-                color: 'rgb(0,128,0)'
-              }}>R$ 1,99</b> */}
-              e que é pago uma única vez.</Typography>
+              que é pago uma única vez.</Typography>
           </Stack>
         </Stack>
         <Stack
